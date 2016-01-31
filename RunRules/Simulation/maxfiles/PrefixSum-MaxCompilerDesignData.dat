@@ -1,0 +1,1381 @@
+#ifdef MAXCOMPILER_VERSION_INFO
+#define MAXCOMPILER_VERSION_INFO_PRESENT 1
+#define MAXFILE_MAXCOMPILER_VERSION_YEAR         2015
+#define MAXFILE_MAXCOMPILER_VERSION_NUM          1
+#define MAXFILE_MAXCOMPILER_VERSION_POINT        1
+#define MAXFILE_MAXCOMPILER_VERSION_PATCH        ""
+#define MAXFILE_MAXCOMPILER_VERSION_REV          44944
+#define MAXFILE_MAXCOMPILER_VERSION_RELEASE_DATE "2015-08-07"
+#define MAXFILE_MAXCOMPILER_VERSION_RELEASE_MODE true
+#endif
+
+#ifdef MAXFILE_BUILD_INFO
+#define MAXFILE_BUILD_INFO_PRESENT 1
+#define MAXFILE_BUILD_NAME "PrefixSum"
+#define MAXFILE_BUILD_DIR  "/home/demo/Desktop/MaxCompiler-Builds/PrefixSum_VECTIS_DFE_SIM"
+#define MAXFILE_BUILD_DATE  20160110
+#define MAXFILE_BUILD_REV   1
+#endif
+
+#ifdef PARAM
+#define PARAM_PRESENT 1
+PARAM(APP_ID, 0)
+PARAM(REV_ID, 0)
+PARAM(CHAIN_LENGTH, 35)
+PARAM(IS_SIMULATION, 1)
+PARAM(MEC_SUPPORTED, 1)
+PARAM(PCIE_SLAVE_STREAMING, 0)
+PARAM(PCIE_ALIGNMENT, 16)
+PARAM(NUM_IFPGA_LINKS, 0)
+#endif
+
+#ifdef STRING_PARAM
+#define STRING_PARAM_PRESENT 1
+STRING_PARAM(BOARD_MODEL, "MAX3424A")
+#endif
+
+
+
+#ifdef INCLUDE_GENERATED_CPP_HEADERS
+#include "PrefixSumKernel.h"
+#endif
+
+
+
+
+
+
+
+
+#ifdef STREAM_OFFSET_AUTO_LOOP_VAR
+#define STREAM_OFFSET_AUTO_LOOP_VAR_PRESENT 1
+STREAM_OFFSET_AUTO_LOOP_VAR(PrefixSumKernel, loop, 2)
+#endif
+
+
+#ifdef MANAGER_NODE
+#define MANAGER_NODE_PRESENT 1
+MANAGER_NODE(PrefixSumKernel, Kernel)
+MANAGER_NODE(x, PCIe_From_Host_fwd)
+MANAGER_NODE(z, PCIe_To_Host_fwd)
+MANAGER_NODE(Stream_1, DualAspectMux)
+MANAGER_NODE(Stream_6, DualAspectReg)
+MANAGER_NODE(Stream_14, StreamPullPushAdapter)
+MANAGER_NODE(Stream_10, Fifo)
+MANAGER_NODE(Stream_12, Fifo)
+#endif
+
+#ifdef MANAGER_NODE_IO
+#define MANAGER_NODE_IO_PRESENT 1
+MANAGER_NODE_IO(PrefixSumKernel, x, IN, STREAM, 8, PULL)
+MANAGER_NODE_IO(PrefixSumKernel, z, OUT, STREAM, 8, PUSH)
+MANAGER_NODE_IO(x, x, OUT, STREAM, 128, PULL)
+MANAGER_NODE_IO(z, z, IN, STREAM, 128, PUSH)
+MANAGER_NODE_IO(Stream_1, input, IN, STREAM, 128, PULL)
+MANAGER_NODE_IO(Stream_1, output, OUT, STREAM, 8, PUSH)
+MANAGER_NODE_IO(Stream_6, input, IN, STREAM, 8, PULL)
+MANAGER_NODE_IO(Stream_6, output, OUT, STREAM, 128, PULL)
+MANAGER_NODE_IO(Stream_14, input, IN, STREAM, 128, PULL)
+MANAGER_NODE_IO(Stream_14, output, OUT, STREAM, 128, PUSH)
+MANAGER_NODE_IO(Stream_10, input, IN, STREAM, 8, PUSH)
+MANAGER_NODE_IO(Stream_10, output, OUT, STREAM, 8, PULL)
+MANAGER_NODE_IO(Stream_12, input, IN, STREAM, 8, PUSH)
+MANAGER_NODE_IO(Stream_12, output, OUT, STREAM, 8, PULL)
+#endif
+
+#ifdef MANAGER_STREAM
+#define MANAGER_STREAM_PRESENT 1
+MANAGER_STREAM(x, x, Stream_1, input, 128)
+MANAGER_STREAM(PrefixSumKernel, z, Stream_12, input, 8)
+MANAGER_STREAM(Stream_1, output, Stream_10, input, 8)
+MANAGER_STREAM(Stream_6, output, Stream_14, input, 128)
+MANAGER_STREAM(Stream_14, output, z, z, 128)
+MANAGER_STREAM(Stream_10, output, PrefixSumKernel, x, 8)
+MANAGER_STREAM(Stream_12, output, Stream_6, input, 8)
+#endif
+
+#ifdef MANAGER_NODE_STACK_TRACE
+#define MANAGER_NODE_STACK_TRACE_PRESENT 1
+MANAGER_NODE_STACK_TRACE(PrefixSumKernel, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nprefixsum.PrefixSumManager.main(PrefixSumManager.maxj:28)\n")
+MANAGER_NODE_STACK_TRACE(x, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nprefixsum.PrefixSumManager.main(PrefixSumManager.maxj:28)\n")
+MANAGER_NODE_STACK_TRACE(z, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nprefixsum.PrefixSumManager.main(PrefixSumManager.maxj:28)\n")
+MANAGER_NODE_STACK_TRACE(Stream_1, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nprefixsum.PrefixSumManager.main(PrefixSumManager.maxj:28)\n")
+MANAGER_NODE_STACK_TRACE(Stream_6, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nprefixsum.PrefixSumManager.main(PrefixSumManager.maxj:28)\n")
+MANAGER_NODE_STACK_TRACE(Stream_14, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nprefixsum.PrefixSumManager.main(PrefixSumManager.maxj:28)\n")
+MANAGER_NODE_STACK_TRACE(Stream_10, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nprefixsum.PrefixSumManager.main(PrefixSumManager.maxj:28)\n")
+MANAGER_NODE_STACK_TRACE(Stream_12, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nprefixsum.PrefixSumManager.main(PrefixSumManager.maxj:28)\n")
+#endif
+
+
+#ifdef MANAGER_NODE_PROPERTY
+#define MANAGER_NODE_PROPERTY_PRESENT 1
+MANAGER_NODE_PROPERTY(PrefixSumKernel, control_pipelining_depth, 2)
+#endif
+
+
+#ifdef KERNEL_CORE
+#define KERNEL_CORE_PRESENT 1
+KERNEL_CORE(PrefixSumKernel)
+#endif
+
+#ifdef KERNEL_HOST_CONTROLLED
+#define KERNEL_HOST_CONTROLLED_PRESENT 1
+KERNEL_HOST_CONTROLLED(PrefixSumKernel, PrefixSumKernel)
+#endif
+
+#ifdef DEBUG_INPUT_BITS
+#define DEBUG_INPUT_BITS_PRESENT 1
+DEBUG_INPUT_BITS(PrefixSumKernel, x, 0)
+#endif
+
+#ifdef DEBUG_OUTPUT_BITS
+#define DEBUG_OUTPUT_BITS_PRESENT 1
+DEBUG_OUTPUT_BITS(PrefixSumKernel, z, 0)
+#endif
+
+#ifdef MANAGER_NODE_CPP_SIM_MODEL_CTOR
+#define MANAGER_NODE_CPP_SIM_MODEL_CTOR_PRESENT 1
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(x, PCIePullSourceSyncMax3, "x")
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(Stream_1, DualAspectMuxSync, "Stream_1", 8, 16)
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(Stream_10, FifoPushToPullSync, "Stream_10", false, 512, 8)
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(PrefixSumKernel, PrefixSumKernel, "PrefixSumKernel")
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(Stream_12, FifoPushToPullSync, "Stream_12", false, 512, 8)
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(Stream_6, DualAspectRegSync, "Stream_6", 8, 16)
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(Stream_14, PullToPushAdapterSync, "Stream_14")
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(z, PCIePushSinkSyncMax3, "z")
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(CapabilityReg, CapRegs, "CapabilityReg", 0, 1, 1, 0, 0, 0, 0, 0, 35)
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(ifpga, IFPGARegs)
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(sfa, SFARegs)
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(ChecksumMemory, ChecksumMem, "ChecksumMemory", "a42c40e37c1cef8eacc56f165b323516ec128749099673f5bcbb115bb825b46d")
+#endif
+
+#ifdef MANAGER_NODE_CPP_SIM_MODEL_SETUP
+#define MANAGER_NODE_CPP_SIM_MODEL_SETUP_PRESENT 1
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(PrefixSumKernel, addDebugRegister, reg_dbg_ctld_almost_empty, 1, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(PrefixSumKernel, addDebugRegister, reg_dbg_ctld_done, 1, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(PrefixSumKernel, addDebugRegister, reg_dbg_ctld_empty, 1, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(PrefixSumKernel, addDebugRegister, reg_dbg_ctld_read, 1, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(PrefixSumKernel, addDebugRegister, reg_dbg_ctld_read_pipe_dbg, 3, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(PrefixSumKernel, addDebugRegister, reg_dbg_ctld_request, 1, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(PrefixSumKernel, addDebugRegister, reg_dbg_done_out, 1, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(PrefixSumKernel, addDebugRegister, reg_dbg_fill_level, 4, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(PrefixSumKernel, addDebugRegister, reg_dbg_flush_level, 4, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(PrefixSumKernel, addDebugRegister, reg_dbg_flush_start, 1, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(PrefixSumKernel, addDebugRegister, reg_dbg_flush_start_level, 4, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(PrefixSumKernel, addDebugRegister, reg_dbg_flushing, 1, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(PrefixSumKernel, addDebugRegister, reg_dbg_full_level, 4, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(PrefixSumKernel, addDebugRegister, reg_dbg_out_stall, 1, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(PrefixSumKernel, addDebugRegister, reg_dbg_out_valid, 1, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(PrefixSumKernel, addDebugRegister, reg_dbg_stall_vector, 1, 0)
+#endif
+
+#ifdef PCIE_STREAM
+#define PCIE_STREAM_PRESENT 1
+PCIE_STREAM(x, STREAM_FROM_HOST, 0)
+PCIE_STREAM(z, STREAM_TO_HOST, 0)
+#endif
+
+#ifdef REG
+#define REG_PRESENT 1
+REG(PrefixSumKernel.io_x_force_disabled, 0x0, 1, hwOffsetFix(1, 0, UNSIGNED))
+REG(PrefixSumKernel.io_z_force_disabled, 0x1, 1, hwOffsetFix(1, 0, UNSIGNED))
+REG(PrefixSumKernel.run_cycle_count, 0x2, 6, hwOffsetFix(48, 0, UNSIGNED))
+REG(PrefixSumKernel.current_run_cycle_count, 0x8, 6, hwOffsetFix(48, 0, UNSIGNED))
+REG(PrefixSumKernel.dbg_ctld_almost_empty, 0xe, 1, hwBits(1))
+REG(PrefixSumKernel.dbg_ctld_done, 0xf, 1, hwBits(1))
+REG(PrefixSumKernel.dbg_ctld_empty, 0x10, 1, hwBits(1))
+REG(PrefixSumKernel.dbg_ctld_read, 0x11, 1, hwBits(1))
+REG(PrefixSumKernel.dbg_ctld_read_pipe_dbg, 0x12, 1, hwBits(3))
+REG(PrefixSumKernel.dbg_ctld_request, 0x13, 1, hwBits(1))
+REG(PrefixSumKernel.dbg_done_out, 0x14, 1, hwBits(1))
+REG(PrefixSumKernel.dbg_fill_level, 0x15, 1, hwBits(4))
+REG(PrefixSumKernel.dbg_flush_level, 0x16, 1, hwBits(4))
+REG(PrefixSumKernel.dbg_flush_start, 0x17, 1, hwBits(1))
+REG(PrefixSumKernel.dbg_flush_start_level, 0x18, 1, hwBits(4))
+REG(PrefixSumKernel.dbg_flushing, 0x19, 1, hwBits(1))
+REG(PrefixSumKernel.dbg_full_level, 0x1a, 1, hwBits(4))
+REG(PrefixSumKernel.dbg_out_stall, 0x1b, 1, hwBits(1))
+REG(PrefixSumKernel.dbg_out_valid, 0x1c, 1, hwBits(1))
+REG(PrefixSumKernel.dbg_stall_vector, 0x1d, 1, hwBits(1))
+REG(ifpga.ifpga_ctrl, 0x1e, 1, hwBits(8))
+REG(SignalForwardingAdapter.SFA_FORWARD_EN, 0x1f, 4, hwBits(32))
+#endif
+
+#ifdef REG_V2
+#define REG_V2_PRESENT 1
+REG_V2(PrefixSumKernel.io_x_force_disabled, 0x0, 1, hwOffsetFix(1, 0, UNSIGNED), HOST_WRITE_ONLY, true)
+REG_V2(PrefixSumKernel.io_z_force_disabled, 0x1, 1, hwOffsetFix(1, 0, UNSIGNED), HOST_WRITE_ONLY, true)
+REG_V2(PrefixSumKernel.run_cycle_count, 0x2, 6, hwOffsetFix(48, 0, UNSIGNED), HOST_WRITE_ONLY, false)
+REG_V2(PrefixSumKernel.current_run_cycle_count, 0x8, 6, hwOffsetFix(48, 0, UNSIGNED), HOST_READ_ONLY, false)
+REG_V2(PrefixSumKernel.dbg_ctld_almost_empty, 0xe, 1, hwBits(1), HOST_READ_ONLY, false)
+REG_V2(PrefixSumKernel.dbg_ctld_done, 0xf, 1, hwBits(1), HOST_READ_ONLY, false)
+REG_V2(PrefixSumKernel.dbg_ctld_empty, 0x10, 1, hwBits(1), HOST_READ_ONLY, false)
+REG_V2(PrefixSumKernel.dbg_ctld_read, 0x11, 1, hwBits(1), HOST_READ_ONLY, false)
+REG_V2(PrefixSumKernel.dbg_ctld_read_pipe_dbg, 0x12, 1, hwBits(3), HOST_READ_ONLY, false)
+REG_V2(PrefixSumKernel.dbg_ctld_request, 0x13, 1, hwBits(1), HOST_READ_ONLY, false)
+REG_V2(PrefixSumKernel.dbg_done_out, 0x14, 1, hwBits(1), HOST_READ_ONLY, false)
+REG_V2(PrefixSumKernel.dbg_fill_level, 0x15, 1, hwBits(4), HOST_READ_ONLY, false)
+REG_V2(PrefixSumKernel.dbg_flush_level, 0x16, 1, hwBits(4), HOST_READ_ONLY, false)
+REG_V2(PrefixSumKernel.dbg_flush_start, 0x17, 1, hwBits(1), HOST_READ_ONLY, false)
+REG_V2(PrefixSumKernel.dbg_flush_start_level, 0x18, 1, hwBits(4), HOST_READ_ONLY, false)
+REG_V2(PrefixSumKernel.dbg_flushing, 0x19, 1, hwBits(1), HOST_READ_ONLY, false)
+REG_V2(PrefixSumKernel.dbg_full_level, 0x1a, 1, hwBits(4), HOST_READ_ONLY, false)
+REG_V2(PrefixSumKernel.dbg_out_stall, 0x1b, 1, hwBits(1), HOST_READ_ONLY, false)
+REG_V2(PrefixSumKernel.dbg_out_valid, 0x1c, 1, hwBits(1), HOST_READ_ONLY, false)
+REG_V2(PrefixSumKernel.dbg_stall_vector, 0x1d, 1, hwBits(1), HOST_READ_ONLY, false)
+REG_V2(ifpga.ifpga_ctrl, 0x1e, 1, hwBits(8), HOST_READ_WRITE, false)
+REG_V2(SignalForwardingAdapter.SFA_FORWARD_EN, 0x1f, 4, hwBits(32), HOST_READ_WRITE, false)
+#endif
+
+
+
+
+#ifdef CHECKSUM
+#define CHECKSUM_PRESENT 1
+CHECKSUM("a42c40e37c1cef8eacc56f165b323516ec128749099673f5bcbb115bb825b46d")
+#endif
+
+#ifdef CAPABILITY
+#define CAPABILITY_PRESENT 1
+CAPABILITY(MAX3REV, MAX3REVA)
+CAPABILITY(MAX3RAM, DDR3_24GB)
+CAPABILITY(MAX3FPGA, SXT475_2ES)
+#endif
+
+#ifdef DEFINE_DESIGN_NAME
+#define DESIGN_NAME PrefixSum
+#endif /* DEFINE_DESIGN_NAME */
+
+#ifndef SLIC_NO_DECLARATIONS
+/**\file */
+#ifndef SLIC_DECLARATIONS_PrefixSum_H
+#define SLIC_DECLARATIONS_PrefixSum_H
+#include "MaxSLiCInterface.h"
+#ifdef __cplusplus
+extern "C" {
+#endif /* __cplusplus */
+
+#define PrefixSum_PCIE_ALIGNMENT (16)
+
+
+/*----------------------------------------------------------------------------*/
+/*---------------------------- Interface default -----------------------------*/
+/*----------------------------------------------------------------------------*/
+
+
+
+/**
+ * \brief Auxiliary function to evaluate expression for "PrefixSumKernel.loop".
+ */
+int PrefixSum_get_PrefixSumKernel_loop( void );
+
+
+/**
+ * \brief Basic static function for the interface 'default'.
+ * 
+ * \param [in] param_N Interface Parameter "N".
+ * \param [in] instream_x The stream should be of size (param_N * 1) bytes.
+ * \param [out] outstream_z The stream should be of size (param_N * 1) bytes.
+ */
+void PrefixSum(
+	int64_t param_N,
+	const int8_t *instream_x,
+	int8_t *outstream_z);
+
+/**
+ * \brief Basic static non-blocking function for the interface 'default'.
+ * 
+ * Schedule to run on an engine and return immediately.
+ * The status of the run can be checked either by ::max_wait or ::max_nowait;
+ * note that one of these *must* be called, so that associated memory can be released.
+ * 
+ * 
+ * \param [in] param_N Interface Parameter "N".
+ * \param [in] instream_x The stream should be of size (param_N * 1) bytes.
+ * \param [out] outstream_z The stream should be of size (param_N * 1) bytes.
+ * \return A handle on the execution status, or NULL in case of error.
+ */
+max_run_t *PrefixSum_nonblock(
+	int64_t param_N,
+	const int8_t *instream_x,
+	int8_t *outstream_z);
+
+/**
+ * \brief Advanced static interface, structure for the engine interface 'default'
+ * 
+ */
+typedef struct { 
+	int64_t param_N; /**<  [in] Interface Parameter "N". */
+	const int8_t *instream_x; /**<  [in] The stream should be of size (param_N * 1) bytes. */
+	int8_t *outstream_z; /**<  [out] The stream should be of size (param_N * 1) bytes. */
+} PrefixSum_actions_t;
+
+/**
+ * \brief Advanced static function for the interface 'default'.
+ * 
+ * \param [in] engine The engine on which the actions will be executed.
+ * \param [in,out] interface_actions Actions to be executed.
+ */
+void PrefixSum_run(
+	max_engine_t *engine,
+	PrefixSum_actions_t *interface_actions);
+
+/**
+ * \brief Advanced static non-blocking function for the interface 'default'.
+ *
+ * Schedule the actions to run on the engine and return immediately.
+ * The status of the run can be checked either by ::max_wait or ::max_nowait;
+ * note that one of these *must* be called, so that associated memory can be released.
+ *
+ * 
+ * \param [in] engine The engine on which the actions will be executed.
+ * \param [in] interface_actions Actions to be executed.
+ * \return A handle on the execution status of the actions, or NULL in case of error.
+ */
+max_run_t *PrefixSum_run_nonblock(
+	max_engine_t *engine,
+	PrefixSum_actions_t *interface_actions);
+
+/**
+ * \brief Group run advanced static function for the interface 'default'.
+ * 
+ * \param [in] group Group to use.
+ * \param [in,out] interface_actions Actions to run.
+ *
+ * Run the actions on the first device available in the group.
+ */
+void PrefixSum_run_group(max_group_t *group, PrefixSum_actions_t *interface_actions);
+
+/**
+ * \brief Group run advanced static non-blocking function for the interface 'default'.
+ * 
+ *
+ * Schedule the actions to run on the first device available in the group and return immediately.
+ * The status of the run must be checked with ::max_wait. 
+ * Note that use of ::max_nowait is prohibited with non-blocking running on groups:
+ * see the ::max_run_group_nonblock documentation for more explanation.
+ *
+ * \param [in] group Group to use.
+ * \param [in] interface_actions Actions to run.
+ * \return A handle on the execution status of the actions, or NULL in case of error.
+ */
+max_run_t *PrefixSum_run_group_nonblock(max_group_t *group, PrefixSum_actions_t *interface_actions);
+
+/**
+ * \brief Array run advanced static function for the interface 'default'.
+ * 
+ * \param [in] engarray The array of devices to use.
+ * \param [in,out] interface_actions The array of actions to run.
+ *
+ * Run the array of actions on the array of engines.  The length of interface_actions
+ * must match the size of engarray.
+ */
+void PrefixSum_run_array(max_engarray_t *engarray, PrefixSum_actions_t *interface_actions[]);
+
+/**
+ * \brief Array run advanced static non-blocking function for the interface 'default'.
+ * 
+ *
+ * Schedule to run the array of actions on the array of engines, and return immediately.
+ * The length of interface_actions must match the size of engarray.
+ * The status of the run can be checked either by ::max_wait or ::max_nowait;
+ * note that one of these *must* be called, so that associated memory can be released.
+ *
+ * \param [in] engarray The array of devices to use.
+ * \param [in] interface_actions The array of actions to run.
+ * \return A handle on the execution status of the actions, or NULL in case of error.
+ */
+max_run_t *PrefixSum_run_array_nonblock(max_engarray_t *engarray, PrefixSum_actions_t *interface_actions[]);
+
+/**
+ * \brief Converts a static-interface action struct into a dynamic-interface max_actions_t struct.
+ *
+ * Note that this is an internal utility function used by other functions in the static interface.
+ *
+ * \param [in] maxfile The maxfile to use.
+ * \param [in] interface_actions The interface-specific actions to run.
+ * \return The dynamic-interface actions to run, or NULL in case of error.
+ */
+max_actions_t* PrefixSum_convert(max_file_t *maxfile, PrefixSum_actions_t *interface_actions);
+
+/**
+ * \brief Initialise a maxfile.
+ */
+max_file_t* PrefixSum_init(void);
+
+/* Error handling functions */
+int PrefixSum_has_errors(void);
+const char* PrefixSum_get_errors(void);
+void PrefixSum_clear_errors(void);
+/* Free statically allocated maxfile data */
+void PrefixSum_free(void);
+/* returns: -1 = error running command; 0 = no error reported */
+int PrefixSum_simulator_start(void);
+/* returns: -1 = error running command; 0 = no error reported */
+int PrefixSum_simulator_stop(void);
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
+#endif /* SLIC_DECLARATIONS_PrefixSum_H */
+
+#endif /* SLIC_NO_DECLARATIONS */
+
+#ifdef PHOTON_NODE_DATA
+#define PHOTON_NODE_DATA_PRESENT 1
+PHOTON_NODE_DATA(PrefixSumKernel, 47, NodeConstantRawBits, "{HWOffsetFix:1, 0, UNSIGNED}\n0x1; 1.0", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Count.simpleCounter(Count.java:570)\nprefixsum.PrefixSumKernel.<init>(PrefixSumKernel.maxj:20)\nprefixsum.PrefixSumManager.main(PrefixSumManager.maxj:20)\n")
+PHOTON_NODE_DATA(PrefixSumKernel, 41, NodeConstantRawBits, "{HWOffsetFix:64, 0, UNSIGNED}\n0x0000000000000002; 2.0", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Stream$OffsetExpr.getDFEVar(Stream.java:186)\nprefixsum.PrefixSumKernel.<init>(PrefixSumKernel.maxj:18)\nprefixsum.PrefixSumManager.main(PrefixSumManager.maxj:20)\n")
+PHOTON_NODE_DATA(PrefixSumKernel, 4, NodeCast, "{HWOffsetFix:8, 0, UNSIGNED}", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.cast(DFEVar.java:165)\nprefixsum.PrefixSumKernel.<init>(PrefixSumKernel.maxj:20)\nprefixsum.PrefixSumManager.main(PrefixSumManager.maxj:20)\n")
+PHOTON_NODE_DATA(PrefixSumKernel, 6, NodeCounterV1, "Counter(NUMERIC_INCREMENTING)\nInc: 1\nReset: 0\nInit: 0", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Count.simpleCounter(Count.java:570)\nprefixsum.PrefixSumKernel.<init>(PrefixSumKernel.maxj:20)\nprefixsum.PrefixSumManager.main(PrefixSumManager.maxj:20)\n")
+PHOTON_NODE_DATA(PrefixSumKernel, 46, NodeConstantRawBits, "{HWOffsetFix:8, 0, UNSIGNED}\n0x00; 0.0", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.eq(DFEVar.java:589)\nprefixsum.PrefixSumKernel.<init>(PrefixSumKernel.maxj:28)\nprefixsum.PrefixSumManager.main(PrefixSumManager.maxj:20)\n")
+PHOTON_NODE_DATA(PrefixSumKernel, 19, NodeEq, "==", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.eq(DFEVar.java:589)\nprefixsum.PrefixSumKernel.<init>(PrefixSumKernel.maxj:28)\nprefixsum.PrefixSumManager.main(PrefixSumManager.maxj:20)\n")
+PHOTON_NODE_DATA(PrefixSumKernel, 20, NodeInputMappedReg, "Scalar input (io_z_force_disabled)", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.output(IO.java:685)\nprefixsum.PrefixSumKernel.<init>(PrefixSumKernel.maxj:28)\nprefixsum.PrefixSumManager.main(PrefixSumManager.maxj:20)\n")
+PHOTON_NODE_DATA(PrefixSumKernel, 21, NodeNot, "~", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.output(IO.java:685)\nprefixsum.PrefixSumKernel.<init>(PrefixSumKernel.maxj:28)\nprefixsum.PrefixSumManager.main(PrefixSumManager.maxj:20)\n")
+PHOTON_NODE_DATA(PrefixSumKernel, 22, NodeAnd, "&", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.output(IO.java:685)\nprefixsum.PrefixSumKernel.<init>(PrefixSumKernel.maxj:28)\nprefixsum.PrefixSumManager.main(PrefixSumManager.maxj:20)\n")
+PHOTON_NODE_DATA(PrefixSumKernel, 40, NodeFIFO, "FIFO(6)", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nprefixsum.PrefixSumManager.main(PrefixSumManager.maxj:28)\n")
+PHOTON_NODE_DATA(PrefixSumKernel, 45, NodeConstantRawBits, "{HWOffsetFix:8, 0, UNSIGNED}\n0x00; 0.0", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.eq(DFEVar.java:589)\nprefixsum.PrefixSumKernel.<init>(PrefixSumKernel.maxj:22)\nprefixsum.PrefixSumManager.main(PrefixSumManager.maxj:20)\n")
+PHOTON_NODE_DATA(PrefixSumKernel, 8, NodeEq, "==", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.eq(DFEVar.java:589)\nprefixsum.PrefixSumKernel.<init>(PrefixSumKernel.maxj:22)\nprefixsum.PrefixSumManager.main(PrefixSumManager.maxj:20)\n")
+PHOTON_NODE_DATA(PrefixSumKernel, 9, NodeInputMappedReg, "Scalar input (io_x_force_disabled)", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.input(IO.java:522)\nprefixsum.PrefixSumKernel.<init>(PrefixSumKernel.maxj:22)\nprefixsum.PrefixSumManager.main(PrefixSumManager.maxj:20)\n")
+PHOTON_NODE_DATA(PrefixSumKernel, 10, NodeNot, "~", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.input(IO.java:522)\nprefixsum.PrefixSumKernel.<init>(PrefixSumKernel.maxj:22)\nprefixsum.PrefixSumManager.main(PrefixSumManager.maxj:20)\n")
+PHOTON_NODE_DATA(PrefixSumKernel, 11, NodeAnd, "&", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.input(IO.java:522)\nprefixsum.PrefixSumKernel.<init>(PrefixSumKernel.maxj:22)\nprefixsum.PrefixSumManager.main(PrefixSumManager.maxj:20)\n")
+PHOTON_NODE_DATA(PrefixSumKernel, 12, NodeInput, "Input(x)", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.input(IO.java:522)\nprefixsum.PrefixSumKernel.<init>(PrefixSumKernel.maxj:22)\nprefixsum.PrefixSumManager.main(PrefixSumManager.maxj:20)\n")
+PHOTON_NODE_DATA(PrefixSumKernel, 44, NodeConstantRawBits, "{HWOffsetFix:1, 0, UNSIGNED}\n0x1; 1.0", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Count.simpleCounter(Count.java:529)\nprefixsum.PrefixSumKernel.<init>(PrefixSumKernel.maxj:19)\nprefixsum.PrefixSumManager.main(PrefixSumManager.maxj:20)\n")
+PHOTON_NODE_DATA(PrefixSumKernel, 2, NodeConstantRawBits, "{HWOffsetFix:65, 0, UNSIGNED}\n0x10000000000000000; 1.8446744073709552E19", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Count.simpleCounter(Count.java:529)\nprefixsum.PrefixSumKernel.<init>(PrefixSumKernel.maxj:19)\nprefixsum.PrefixSumManager.main(PrefixSumManager.maxj:20)\n")
+PHOTON_NODE_DATA(PrefixSumKernel, 3, NodeCounterV1, "Counter(NUMERIC_INCREMENTING)\nInc: 1\nReset: 0\nInit: 0", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Count.simpleCounter(Count.java:529)\nprefixsum.PrefixSumKernel.<init>(PrefixSumKernel.maxj:19)\nprefixsum.PrefixSumManager.main(PrefixSumManager.maxj:20)\n")
+PHOTON_NODE_DATA(PrefixSumKernel, 13, NodeLt, "<", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.lt(DFEVar.java:822)\nprefixsum.PrefixSumKernel.<init>(PrefixSumKernel.maxj:24)\nprefixsum.PrefixSumManager.main(PrefixSumManager.maxj:20)\n")
+PHOTON_NODE_DATA(PrefixSumKernel, 39, NodeFIFO, "FIFO(4)", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nprefixsum.PrefixSumManager.main(PrefixSumManager.maxj:28)\n")
+PHOTON_NODE_DATA(PrefixSumKernel, 38, NodeStreamOffset, "stream offset: -2", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Stream.offset(Stream.java:269)\nprefixsum.PrefixSumKernel.<init>(PrefixSumKernel.maxj:26)\nprefixsum.PrefixSumManager.main(PrefixSumManager.maxj:20)\n")
+PHOTON_NODE_DATA(PrefixSumKernel, 14, NodeConstantRawBits, "{HWOffsetFix:8, 0, TWOSCOMPLEMENT}\n0x00; 0.0", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.ternaryIf(DFEVar.java:1181)\nprefixsum.PrefixSumKernel.<init>(PrefixSumKernel.maxj:24)\nprefixsum.PrefixSumManager.main(PrefixSumManager.maxj:20)\n")
+PHOTON_NODE_DATA(PrefixSumKernel, 15, NodeMux, "MUX", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.ternaryIf(DFEVar.java:1181)\nprefixsum.PrefixSumKernel.<init>(PrefixSumKernel.maxj:24)\nprefixsum.PrefixSumManager.main(PrefixSumManager.maxj:20)\n")
+PHOTON_NODE_DATA(PrefixSumKernel, 16, NodeAdd, "+", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.add(DFEVar.java:868)\nprefixsum.PrefixSumKernel.<init>(PrefixSumKernel.maxj:24)\nprefixsum.PrefixSumManager.main(PrefixSumManager.maxj:20)\n")
+PHOTON_NODE_DATA(PrefixSumKernel, 23, NodeOutput, "Output(z)", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.output(IO.java:685)\nprefixsum.PrefixSumKernel.<init>(PrefixSumKernel.maxj:28)\nprefixsum.PrefixSumManager.main(PrefixSumManager.maxj:20)\n")
+PHOTON_NODE_DATA(PrefixSumKernel, 28, NodeConstantRawBits, "{HWOffsetFix:1, 0, UNSIGNED}\n0x1; 1.0", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nprefixsum.PrefixSumManager.main(PrefixSumManager.maxj:28)\n")
+PHOTON_NODE_DATA(PrefixSumKernel, 43, NodeConstantRawBits, "{HWOffsetFix:1, 0, UNSIGNED}\n0x1; 1.0", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nprefixsum.PrefixSumManager.main(PrefixSumManager.maxj:28)\n")
+PHOTON_NODE_DATA(PrefixSumKernel, 25, NodeConstantRawBits, "{HWOffsetFix:49, 0, UNSIGNED}\n0x1000000000000; 2.81474976710656E14", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nprefixsum.PrefixSumManager.main(PrefixSumManager.maxj:28)\n")
+PHOTON_NODE_DATA(PrefixSumKernel, 26, NodeCounterV1, "Counter(NUMERIC_INCREMENTING)\nInc: 1\nReset: 0\nInit: 0", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nprefixsum.PrefixSumManager.main(PrefixSumManager.maxj:28)\n")
+PHOTON_NODE_DATA(PrefixSumKernel, 27, NodeStreamOffset, "stream offset: 1", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nprefixsum.PrefixSumManager.main(PrefixSumManager.maxj:28)\n")
+PHOTON_NODE_DATA(PrefixSumKernel, 29, NodeOutputMappedReg, "Scalar output (current_run_cycle_count)", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nprefixsum.PrefixSumManager.main(PrefixSumManager.maxj:28)\n")
+PHOTON_NODE_DATA(PrefixSumKernel, 42, NodeConstantRawBits, "{HWOffsetFix:1, 0, UNSIGNED}\n0x1; 1.0", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nprefixsum.PrefixSumManager.main(PrefixSumManager.maxj:28)\n")
+PHOTON_NODE_DATA(PrefixSumKernel, 31, NodeConstantRawBits, "{HWOffsetFix:49, 0, UNSIGNED}\n0x1000000000000; 2.81474976710656E14", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nprefixsum.PrefixSumManager.main(PrefixSumManager.maxj:28)\n")
+PHOTON_NODE_DATA(PrefixSumKernel, 32, NodeCounterV1, "Counter(NUMERIC_INCREMENTING)\nInc: 1\nReset: 0\nInit: 0", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nprefixsum.PrefixSumManager.main(PrefixSumManager.maxj:28)\n")
+PHOTON_NODE_DATA(PrefixSumKernel, 34, NodeInputMappedReg, "Scalar input (run_cycle_count)", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nprefixsum.PrefixSumManager.main(PrefixSumManager.maxj:28)\n")
+PHOTON_NODE_DATA(PrefixSumKernel, 35, NodeEq, "==", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nprefixsum.PrefixSumManager.main(PrefixSumManager.maxj:28)\n")
+PHOTON_NODE_DATA(PrefixSumKernel, 33, NodeFlush, "flush on trigger", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nprefixsum.PrefixSumManager.main(PrefixSumManager.maxj:28)\n")
+#endif
+
+#ifdef SLIC_USE_DEFINITIONS
+#include <stdio.h>
+#include <math.h>
+#include <pthread.h>
+#include <string.h>
+#include <unistd.h>
+#include <stdlib.h>
+static max_file_t *stored_maxfile = NULL;
+static max_engine_t *stored_engine = NULL;
+static char *stored_error = NULL;
+static int stored_has_error = 0;
+static pthread_once_t slic_bs_is_initialised = PTHREAD_ONCE_INIT;
+
+static void set_error(const char *error_str)
+{
+	stored_has_error = 1; 
+	if(stored_error == NULL) {
+		stored_error = strdup(error_str);
+	} else {
+		char *nerr = malloc(strlen(stored_error) + strlen(error_str) + 2);
+		sprintf(nerr, "%s\n%s", stored_error, error_str);
+		free(stored_error);
+		stored_error = nerr;
+	}
+}
+static void set_error_and_free(char *error_str){
+	set_error(error_str);
+	free(error_str);
+}
+int PrefixSum_has_errors(void)
+{	return stored_has_error; }
+const char* PrefixSum_get_errors(void)
+{	return stored_error; }
+void PrefixSum_clear_errors(void)
+{
+	free(stored_error);
+	stored_error = NULL;
+	stored_has_error = 0;
+}
+
+static char PrefixSum_use_simulation[16];
+static void PrefixSum_def_use_simulation(void)
+{
+	long pid = ((long) getpid()) % 100000;
+	snprintf(PrefixSum_use_simulation, 16, "PrefixSu_%05ld_", pid);
+}
+static const char *PrefixSum_check_use_simulation(void)
+{
+	PrefixSum_def_use_simulation();
+	const char *use_sim = max_config_get_string(MAX_CONFIG_USE_SIMULATION);
+	if (use_sim == NULL) {
+		use_sim = PrefixSum_use_simulation;
+		max_config_set_string(MAX_CONFIG_USE_SIMULATION, use_sim);
+	}
+	return use_sim;
+}
+
+static int PrefixSum_simulation_launch = 0;
+int PrefixSum_simulator_start(void)
+{
+	int retval = 0;
+	const char *use_sim = PrefixSum_check_use_simulation();
+	char buff[1024];
+	snprintf(buff, 1024, "PATH=simutils:$PATH maxcompilersim -d 1 -n %s -c MAX3424A -S simutils restart", use_sim);
+	FILE *pipe_fp = popen(buff, "r");
+	if (pipe_fp == NULL) {
+		strncat(buff, " : failed to execute.", (1024 - strlen(buff)));
+		set_error(buff);
+		return -1;
+	}
+	while (fgets(buff, 1024, pipe_fp) != NULL) {
+		/* Uncomment this to get simulator command output */
+		/* fprintf(stderr, buff); */
+		if (strstr(buff, "Error")) {
+			set_error(buff);
+			retval = -1;
+		}
+	}
+	pclose(pipe_fp);
+	return retval;
+}
+
+int PrefixSum_simulator_stop(void)
+{
+	const char *use_sim = PrefixSum_check_use_simulation();
+	char buff[1024];
+	snprintf(buff, 1024, "PATH=simutils:$PATH maxcompilersim -d 1 -n %s -c MAX3424A -S simutils stop", use_sim);
+	FILE *pipe_fp = popen(buff, "r");
+	if (pipe_fp == NULL) {
+		strncat(buff, " : failed to execute.", (1024 - strlen(buff)));
+		set_error(buff);
+		return -1;
+	}
+	while (fgets(buff, 1024, pipe_fp) != NULL) {
+		/* Uncomment this to get simulator command output */
+		/* fprintf(stderr, buff); */
+		;
+	}
+	pclose(pipe_fp);
+	return 0;
+}
+
+static void PrefixSum_static_init(void) 
+{
+	stored_maxfile = PrefixSum_init();
+	if (stored_maxfile == NULL || !max_ok(stored_maxfile->errors)) {
+		stored_maxfile = NULL;
+		if(max_config_get_bool(MAX_CONFIG_STATIC_INTERFACE_ABORT_ON_ERROR)) abort();
+		else { set_error("Unable to load maxfile"); return; }
+	}
+	if(!max_ok(max_global_errors())) {
+		set_error_and_free(max_errors_trace(max_global_errors()));
+		return;
+	}
+	if(!max_config_get_bool(MAX_CONFIG_STATIC_INTERFACE_ABORT_ON_ERROR))
+		max_errors_mode(stored_maxfile->errors, 0);
+	time_t timeout_previous = max_load_timeout(stored_maxfile, 30);
+	const char *use_sim = PrefixSum_check_use_simulation();
+	if (max_ping_daemon(stored_maxfile, use_sim) == 0) {
+		int sim_stat = PrefixSum_simulator_start();
+		if ((sim_stat == 0) && (max_ping_daemon(stored_maxfile, use_sim) == 1)) {
+			PrefixSum_simulation_launch = 1;
+		} else {
+			set_error("Error: An error occurred while trying to start the simulation infrastructure automatically.");
+			set_error("Error: Check that 'use_simulation=<simulator_name>' is set correctly in your SLiC configuration");
+			set_error("Error: and that the associated simulated system daemon is running.");
+			max_file_free(stored_maxfile);
+			stored_maxfile = NULL;
+			return;
+		}
+	}
+	stored_engine = max_load(stored_maxfile, "*");
+	if (!max_ok(stored_maxfile->errors)) {
+		if(max_config_get_bool(MAX_CONFIG_STATIC_INTERFACE_ABORT_ON_ERROR)) {
+			fprintf(stderr, "\nUnable to load engine: aborting now.\n\n");
+			fflush(stderr);
+			abort();
+		} else {
+			set_error_and_free(max_errors_trace(stored_maxfile->errors));
+			max_file_free(stored_maxfile);
+			stored_maxfile = NULL;
+			return;
+		} 
+	} 
+	max_load_timeout(stored_maxfile, timeout_previous);
+}
+void PrefixSum_free(void)
+{
+	if (stored_engine != NULL) {
+		max_unload(stored_engine);
+		stored_engine = NULL;
+	}
+	if (stored_maxfile != NULL) {
+		max_file_free(stored_maxfile);
+		stored_maxfile = NULL;
+	}
+	if (stored_error != NULL) {
+		free(stored_error);
+		stored_error = NULL;
+	}
+	if (PrefixSum_simulation_launch == 1) {
+		int sim_stat = PrefixSum_simulator_stop();
+		if (sim_stat != 0 ) {
+			fprintf(stderr, "Error stopping simulator.");
+		}
+		PrefixSum_simulation_launch = 0;
+	}
+}
+
+static int PrefixSum_get_pcie_alignment(void)
+{
+#ifdef PrefixSum_PCIE_ALIGNMENT
+	return ((PrefixSum_PCIE_ALIGNMENT < 1) ? 16 : PrefixSum_PCIE_ALIGNMENT);
+#else
+	return 16;
+#endif
+}
+
+static int PrefixSum_check_aligned(const void *data)
+{
+	uintptr_t pointer = (uintptr_t) data;
+	int alignment = PrefixSum_get_pcie_alignment();
+	return (pointer % alignment) ? 1 : 0;
+}
+
+static void *PrefixSum_malloc_aligned(const size_t size)
+{
+	void *ptr;
+	int alignment = PrefixSum_get_pcie_alignment();
+	posix_memalign(&ptr, alignment, size);
+	return ptr;
+}
+
+
+
+/*----------------------------------------------------------------------------*/
+/*---------------------------- Interface default -----------------------------*/
+/*----------------------------------------------------------------------------*/
+
+
+
+/**
+ * \brief Auxiliary function to evaluate expression for "PrefixSumKernel.loop".
+ */
+int PrefixSum_get_PrefixSumKernel_loop( void )
+{
+	return 2;
+}
+
+#define CHECK_ERRORS_ST(ST, RET) if(!max_ok(ST->errors)) { if(max_config_get_bool(MAX_CONFIG_STATIC_INTERFACE_ABORT_ON_ERROR)) { fprintf(stderr, "%s\n", max_errors_trace(ST->errors)); abort(); } set_error_and_free(max_errors_trace(ST->errors)); return RET; } 
+#define CHECK_NULL(VALUE, MESSAGE, RET) if(VALUE == NULL) { if (max_config_get_bool(MAX_CONFIG_STATIC_INTERFACE_ABORT_ON_ERROR)) { fprintf(stderr, "%s\n%s\n", (stored_error == NULL) ? "" : stored_error, MESSAGE); abort(); } set_error(MESSAGE); return RET; }
+
+ 
+typedef struct PrefixSum_callback_stream {
+	uint8_t *user_ptr;
+	uint8_t *aligned_ptr;
+	size_t   size;
+	int      is_output;
+} PrefixSum_callback_stream_t;
+
+typedef struct PrefixSum_callback_data {
+	PrefixSum_callback_stream_t stream[2]; 
+	int count;
+	int max_count;
+} PrefixSum_callback_data_t;
+
+static void PrefixSum_callback_internal(void *cb_data)
+{
+	PrefixSum_callback_data_t *data = (PrefixSum_callback_data_t*) cb_data;
+	for (int i = 0 ; i < data->count ; i++ ) {
+		PrefixSum_callback_stream_t *s = &data->stream[i];
+		if (s->is_output && (s->size > 0)) {
+			memcpy(s->user_ptr, s->aligned_ptr, s->size);
+		}
+		free(s->aligned_ptr);
+	}
+	free(data);
+}
+
+static max_actions_t* PrefixSum_convert_internal(
+	max_file_t *maxfile,
+	PrefixSum_actions_t *interface_actions,
+	int  is_internal_call,
+	void (**callback_func)(void*),
+	void **callback_data)
+{
+	max_actions_t *actions = max_actions_init(maxfile, NULL);
+	if(actions == NULL) return NULL;
+
+#define CHECK_ERRORS if(!max_ok(actions->errors)) { set_error_and_free(max_errors_trace(actions->errors)); return NULL; } 
+
+	PrefixSum_callback_data_t *cb_data = NULL;
+	int use_callback = (callback_func != NULL) && (callback_data != NULL);
+	if (use_callback) {
+		cb_data = malloc(sizeof(PrefixSum_callback_data_t));
+		if (cb_data == NULL) {
+			fprintf(stderr, "Unable to allocate memory for stream callback data in function PrefixSum_convert_internal\n");
+			return NULL;
+		}
+		cb_data->max_count = 2;
+		cb_data->count     = 0;
+		*callback_data     = cb_data;
+		*callback_func     = &PrefixSum_callback_internal;
+	}
+
+	int32_t param_PrefixSumKernel_loop = PrefixSum_get_PrefixSumKernel_loop(  );
+	
+	int64_t param_N = interface_actions->param_N;
+	
+	int64_t tmp_0 = (param_N * param_PrefixSumKernel_loop);
+	
+	/* code for scalar PrefixSumKernel.run_cycle_count */
+	uint64_t ticks_PrefixSumKernel = tmp_0;
+	max_set_ticks(actions, "PrefixSumKernel", tmp_0);
+	CHECK_ERRORS;
+	/* end of code for scalar PrefixSumKernel.run_cycle_count*/
+	
+	int64_t tmp_1 = (param_N * 1);
+	
+	/* code for stream x */
+	size_t instream_size_x = tmp_1;
+	if (instream_size_x > 0) {
+		const int8_t *stream_ptr = interface_actions->instream_x;
+		if (use_callback && (1 == PrefixSum_check_aligned(interface_actions->instream_x))) {
+			int8_t *aligned_instream_x = malloc(instream_size_x);
+			if (aligned_instream_x == NULL) {
+				max_report_error_slic(actions->errors, __FILE__, __LINE__, 526, "Failed to allocate aligned memory for stream 'x'");
+				CHECK_ERRORS;
+			}
+			(&cb_data->stream[cb_data->count])->user_ptr    = (uint8_t*) interface_actions->instream_x;
+			(&cb_data->stream[cb_data->count])->aligned_ptr = (uint8_t*) aligned_instream_x;
+			(&cb_data->stream[cb_data->count])->size        = instream_size_x;
+			(&cb_data->stream[cb_data->count])->is_output   = 0;
+			cb_data->count += 1;
+			memcpy(aligned_instream_x, interface_actions->instream_x, instream_size_x);
+			stream_ptr = aligned_instream_x;
+		}
+		max_queue_input(actions, "x", stream_ptr, instream_size_x);
+		CHECK_ERRORS;
+	}
+	/* end of code for stream x */
+	
+	int64_t tmp_2 = (param_N * 1);
+	
+	/* code for stream z */
+	size_t outstream_size_z = tmp_2;
+	if (outstream_size_z > 0) {
+		int8_t *stream_ptr = interface_actions->outstream_z;
+		if (use_callback && (1 == PrefixSum_check_aligned(interface_actions->outstream_z))) {
+			int8_t *aligned_outstream_z = malloc(outstream_size_z);
+			if (aligned_outstream_z == NULL) {
+				max_report_error_slic(actions->errors, __FILE__, __LINE__, 526, "Failed to allocate aligned memory for stream 'z'");
+				CHECK_ERRORS;
+			}
+			(&cb_data->stream[cb_data->count])->user_ptr    = (uint8_t*) interface_actions->outstream_z;
+			(&cb_data->stream[cb_data->count])->aligned_ptr = (uint8_t*) aligned_outstream_z;
+			(&cb_data->stream[cb_data->count])->size        = outstream_size_z;
+			(&cb_data->stream[cb_data->count])->is_output   = 1;
+			cb_data->count += 1;
+			stream_ptr = aligned_outstream_z;
+		}
+		max_queue_output(actions, "z", stream_ptr, outstream_size_z);
+		CHECK_ERRORS;
+	}
+	/* end of code for stream z */
+	
+	if (use_callback && cb_data->count == 0) {
+		*callback_data = NULL;
+		*callback_func = NULL;
+		free(cb_data);
+	}
+	return actions;
+#undef CHECK_ERRORS
+}
+
+void PrefixSum(
+	int64_t param_N,
+	const int8_t *instream_x,
+	int8_t *outstream_z)
+{
+	(void) pthread_once(&slic_bs_is_initialised, PrefixSum_static_init);
+	CHECK_NULL(stored_maxfile, "Maxfile was not loaded", );
+	max_run_t *run = PrefixSum_nonblock(param_N, instream_x, outstream_z);
+	CHECK_NULL(run, "Unable to run actions", );
+	max_wait(run);
+}
+
+max_run_t *PrefixSum_nonblock(
+	int64_t param_N,
+	const int8_t *instream_x,
+	int8_t *outstream_z)
+{
+	PrefixSum_actions_t interface_actions;
+	interface_actions.param_N = param_N;
+	interface_actions.instream_x = instream_x;
+	interface_actions.outstream_z = outstream_z;
+	(void) pthread_once(&slic_bs_is_initialised, PrefixSum_static_init);
+	CHECK_NULL(stored_maxfile, "Maxfile was not loaded", NULL);
+	void (*cb_func)(void*) = NULL;
+	void  *cb_data         = NULL;
+	max_actions_t *actions = PrefixSum_convert_internal(stored_maxfile, &interface_actions, 1, &cb_func, &cb_data);
+	CHECK_NULL(actions, "Unable to build actions", NULL);
+	max_validate(actions);
+	CHECK_ERRORS_ST(actions, NULL);
+	CHECK_ERRORS_ST(stored_engine, NULL);
+	max_run_t *run;
+	if (cb_func == NULL) {
+		run = max_run_nonblock(stored_engine, actions);
+	} else {
+		run = max_run_nonblock_with_cb(stored_engine, actions, cb_func, cb_data);
+	}
+	CHECK_NULL(run, "Unable to run actions", NULL);
+	CHECK_ERRORS_ST(actions, NULL);
+	max_actions_free(actions);
+	return run;
+}
+
+void PrefixSum_run(
+	max_engine_t *engine,
+	PrefixSum_actions_t *interface_actions)
+{
+	max_run_t *run = PrefixSum_run_nonblock(engine, interface_actions);
+	CHECK_NULL(run, "Unable to run actions", );
+	max_wait(run);
+}
+
+max_run_t *PrefixSum_run_nonblock(
+	max_engine_t *engine,
+	PrefixSum_actions_t *interface_actions)
+{
+	max_file_t *maxfile = max_engine_get_max_file(engine); 
+	void (*cb_func)(void*) = NULL;
+	void  *cb_data         = NULL;
+	max_actions_t *actions = PrefixSum_convert_internal(maxfile, interface_actions, 1, &cb_func, &cb_data);
+	CHECK_ERRORS_ST(actions, NULL);
+	max_run_t *run;
+	if (cb_func == NULL) {
+		run = max_run_nonblock(engine, actions);
+	} else {
+		run = max_run_nonblock_with_cb(engine, actions, cb_func, cb_data);
+	}
+	CHECK_NULL(run, "Unable to run actions", NULL);
+	max_actions_free(actions);
+	return run;
+}
+
+
+/**
+ * \brief Group run advanced static function for the interface 'default'.
+ * 
+ * \param [in] group Group to use.
+ * \param [in,out] interface_actions Actions to run.
+ *
+ * Run the actions on the first device available in the group.
+ */
+void PrefixSum_run_group(max_group_t *group, PrefixSum_actions_t *interface_actions)
+{
+	max_run_t *run = PrefixSum_run_group_nonblock(group, interface_actions);
+	CHECK_NULL(run, "Unable to run actions", );
+	max_wait(run);
+}
+
+
+/**
+ * \brief Group run advanced static non-blocking function for the interface 'default'.
+ * 
+ *
+ * Schedule the actions to run on the first device available in the group and return immediately.
+ * The status of the run must be checked with ::max_wait. 
+ * Note that use of ::max_nowait is prohibited with non-blocking running on groups:
+ * see the ::max_run_group_nonblock documentation for more explanation.
+ *
+ * \param [in] group Group to use.
+ * \param [in] interface_actions Actions to run.
+ * \return A handle on the execution status of the actions, or NULL in case of error.
+ */
+max_run_t *PrefixSum_run_group_nonblock(max_group_t *group, PrefixSum_actions_t *interface_actions)
+{
+	max_file_t *maxfile = max_group_get_max_file(group);
+	max_actions_t *actions = PrefixSum_convert_internal(maxfile, interface_actions, 1, NULL, NULL);
+	if(actions == NULL) return NULL;
+	if(!max_ok(actions->errors)) return NULL;
+	max_validate(actions);
+	max_run_t *run = max_run_group_nonblock(group, actions);
+	max_actions_free(actions);
+	return run;
+}
+
+
+/**
+ * \brief Array run advanced static function for the interface 'default'.
+ * 
+ * \param [in] engarray The array of devices to use.
+ * \param [in,out] interface_actions The array of actions to run.
+ *
+ * Run the array of actions on the array of engines.  The length of interface_actions
+ * must match the size of engarray.
+ */
+void PrefixSum_run_array(max_engarray_t *engarray, PrefixSum_actions_t *interface_actions[])
+{
+	max_run_t *run = PrefixSum_run_array_nonblock(engarray, interface_actions);
+	CHECK_NULL(run, "Unable to run actions", );
+	max_wait(run);
+}
+
+
+/**
+ * \brief Array run advanced static non-blocking function for the interface 'default'.
+ * 
+ *
+ * Schedule to run the array of actions on the array of engines, and return immediately.
+ * The length of interface_actions must match the size of engarray.
+ * The status of the run can be checked either by ::max_wait or ::max_nowait;
+ * note that one of these *must* be called, so that associated memory can be released.
+ *
+ * \param [in] engarray The array of devices to use.
+ * \param [in] interface_actions The array of actions to run.
+ * \return A handle on the execution status of the actions, or NULL in case of error.
+ */
+max_run_t *PrefixSum_run_array_nonblock(max_engarray_t *engarray, PrefixSum_actions_t *interface_actions[])
+{
+	max_file_t *maxfile = max_engarray_get_max_file(engarray, 0);
+	int i;
+	max_actarray_t *actarray = max_actarray_init(maxfile, engarray->size);
+	if (actarray == NULL) return NULL;
+	max_actions_t **arr_actions = malloc(engarray->size * sizeof(max_actions_t*));
+	for ( i = 0 ; i < actarray->size; i++ ) {
+		max_actions_t *actions = PrefixSum_convert_internal(maxfile, interface_actions[i], 1, NULL, NULL);
+		if (actions == NULL) return NULL;
+		arr_actions[i] = actions;
+		max_set_action(actarray, i, actions);
+	}
+	max_run_t *run = max_run_array_nonblock(engarray, actarray);
+	for ( i = 0 ; i < actarray->size ; i++ ) { max_actions_free(arr_actions[i]); }
+	max_actarray_free(actarray);
+	free(arr_actions);
+	return run;
+}
+
+
+/**
+ * \brief Converts a static-interface action struct into a dynamic-interface max_actions_t struct.
+ *
+ * Note that this is an internal utility function used by other functions in the static interface.
+ *
+ * \param [in] maxfile The maxfile to use.
+ * \param [in] interface_actions The interface-specific actions to run.
+ * \return The dynamic-interface actions to run, or NULL in case of error.
+ */
+max_actions_t* PrefixSum_convert(max_file_t *maxfile, PrefixSum_actions_t *interface_actions)
+{
+	return PrefixSum_convert_internal(maxfile, interface_actions, 0, NULL, NULL);
+}
+
+#undef CHECK_ERRORS_ST
+#undef CHECK_NULL
+
+
+
+#endif /* SLIC_USE_DEFINITIONS */
+
+#ifdef SLIC_DYNAMIC_CODE
+SLIC_MODE_START(default)	
+SLIC_AUTO_LOOP_OFFSET(int32_t, PrefixSumKernel, loop, param_PrefixSumKernel_loop)	
+SLIC_PARAMETER_UINT64(int64_t, N, param_N)	
+SLIC_TEMP_VAR(int64_t tmp_0 = (param_N * param_PrefixSumKernel_loop);)	
+SLIC_SET_TICKS(PrefixSumKernel, tmp_0)	
+SLIC_TEMP_VAR(int64_t tmp_1 = (param_N * 1);)	
+SLIC_STREAM(x, tmp_1)	
+SLIC_TEMP_VAR(int64_t tmp_2 = (param_N * 1);)	
+SLIC_STREAM(z, tmp_2)	
+SLIC_MODE_END(default)
+
+#endif /* SLIC_DYNAMIC_CODE */
+
+#ifdef SKIN_META_DATA
+PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+PG1h
+eGZpbGUgZm9ybWF0LXZlcnNpb249IjIwMTIwMjAwIiBoZWFkZXI9IlByZWZpeFN1bS5oIiBuYW1l
+PSJQcmVmaXhTdW0iPjxjb25zdGFudCBuYW1lPSJQQ0lFX0FMSUdOTUVOVCIgdHlwZT0ibG9uZyIg
+dmFsdWU9IjE2Ii8+PGVuZ2luZW1vZGUgbmFtZT0iZGVmYXVsdCI+PGZ1bmN0aW9uIG5hbWU9IlBy
+ZWZpeFN1bSIgcmV0dXJuLXZhbHVlPSJ2b2lkIj48c2NhbGFyIGRlc2M9IkludGVyZmFjZSBQYXJh
+bWV0ZXIgJnF1b3Q7TiZxdW90Oy4iIGRpcmVjdGlvbj0iSW5wdXQiIG5hbWU9InBhcmFtX04iIHR5
+cGU9ImludDY0X3QiLz48YXJyYXkgZGVzYz0iVGhlIHN0cmVhbSBzaG91bGQgYmUgb2Ygc2l6ZSAo
+cGFyYW1fTiAqIDEpIGJ5dGVzLiIgZGlyZWN0aW9uPSJJbnB1dCIgbmFtZT0iaW5zdHJlYW1feCIg
+c2l6ZT0iKHBhcmFtX04gKiAxKSIgdHJhbnNwb3NlPSJ0cnVlIiB0eXBlPSJpbnQ4X3QiPjxkaW1l
+bnNpb24gaW5kZXg9IjAiPjxsZW5ndGg+PGZ1bmN0aW9uQ2FsbD48bnVtQmluYXJ5T3BlcmF0b3Ig
+b3BlcmF0b3I9Ii8iIHZhbHVlPSIoKHBhcmFtX04gKiAxKSAvIDEpIj48ZnVuY3Rpb25DYWxsPjxu
+dW1CaW5hcnlPcGVyYXRvciBvcGVyYXRvcj0iKiIgdmFsdWU9IihwYXJhbV9OICogMSkiPjx1c2Vy
+UGFyYW0gdmFsdWU9InBhcmFtX04iLz48Y29uc3RhbnRWYWx1ZSB2YWx1ZT0iMSIvPjwvbnVtQmlu
+YXJ5T3BlcmF0b3I+PC9mdW5jdGlvbkNhbGw+PGNvbnN0YW50VmFsdWUgdmFsdWU9IjEiLz48L251
+bUJpbmFyeU9wZXJhdG9yPjwvZnVuY3Rpb25DYWxsPjwvbGVuZ3RoPjwvZGltZW5zaW9uPjwvYXJy
+YXk+PGFycmF5IGRlc2M9IlRoZSBzdHJlYW0gc2hvdWxkIGJlIG9mIHNpemUgKHBhcmFtX04gKiAx
+KSBieXRlcy4iIGRpcmVjdGlvbj0iT3V0cHV0IiBuYW1lPSJvdXRzdHJlYW1feiIgc2l6ZT0iKHBh
+cmFtX04gKiAxKSIgdHJhbnNwb3NlPSJ0cnVlIiB0eXBlPSJpbnQ4X3QiPjxkaW1lbnNpb24gaW5k
+ZXg9IjAiPjxsZW5ndGg+PGZ1bmN0aW9uQ2FsbD48bnVtQmluYXJ5T3BlcmF0b3Igb3BlcmF0b3I9
+Ii8iIHZhbHVlPSIoKHBhcmFtX04gKiAxKSAvIDEpIj48ZnVuY3Rpb25DYWxsPjxudW1CaW5hcnlP
+cGVyYXRvciBvcGVyYXRvcj0iKiIgdmFsdWU9IihwYXJhbV9OICogMSkiPjx1c2VyUGFyYW0gdmFs
+dWU9InBhcmFtX04iLz48Y29uc3RhbnRWYWx1ZSB2YWx1ZT0iMSIvPjwvbnVtQmluYXJ5T3BlcmF0
+b3I+PC9mdW5jdGlvbkNhbGw+PGNvbnN0YW50VmFsdWUgdmFsdWU9IjEiLz48L251bUJpbmFyeU9w
+ZXJhdG9yPjwvZnVuY3Rpb25DYWxsPjwvbGVuZ3RoPjwvZGltZW5zaW9uPjwvYXJyYXk+PC9mdW5j
+dGlvbj48L2VuZ2luZW1vZGU+PC9tYXhmaWxlPg==
+#endif /* SKIN_META_DATA */
+
+#ifdef SLIC_B64_DEFINITIONS
+I2luY2x1ZGUgPHN0ZGlvLmg+CiNpbmNsdWRlIDxtYXRoLmg+CiNpbmNsdWRlIDxwdGhyZWFkLmg+
+CiNpbmNsdWRlIDxzdHJpbmcuaD4KI2luY2x1ZGUgPHVuaXN0ZC5oPgojaW5jbHVkZSA8c3RkbGli
+Lmg+CnN0YXRpYyBtYXhfZmlsZV90ICpzdG9yZWRfbWF4ZmlsZSA9IE5VTEw7CnN0YXRpYyBtYXhf
+ZW5naW5lX3QgKnN0b3JlZF9lbmdpbmUgPSBOVUxMOwpzdGF0aWMgY2hhciAqc3RvcmVkX2Vycm9y
+ID0gTlVMTDsKc3RhdGljIGludCBzdG9yZWRfaGFzX2Vycm9yID0gMDsKc3RhdGljIHB0aHJlYWRf
+b25jZV90IHNsaWNfYnNfaXNfaW5pdGlhbGlzZWQgPSBQVEhSRUFEX09OQ0VfSU5JVDsKCnN0YXRp
+YyB2b2lkIHNldF9lcnJvcihjb25zdCBjaGFyICplcnJvcl9zdHIpCnsKCXN0b3JlZF9oYXNfZXJy
+b3IgPSAxOyAKCWlmKHN0b3JlZF9lcnJvciA9PSBOVUxMKSB7CgkJc3RvcmVkX2Vycm9yID0gc3Ry
+ZHVwKGVycm9yX3N0cik7Cgl9IGVsc2UgewoJCWNoYXIgKm5lcnIgPSBtYWxsb2Moc3RybGVuKHN0
+b3JlZF9lcnJvcikgKyBzdHJsZW4oZXJyb3Jfc3RyKSArIDIpOwoJCXNwcmludGYobmVyciwgIiVz
+XG4lcyIsIHN0b3JlZF9lcnJvciwgZXJyb3Jfc3RyKTsKCQlmcmVlKHN0b3JlZF9lcnJvcik7CgkJ
+c3RvcmVkX2Vycm9yID0gbmVycjsKCX0KfQpzdGF0aWMgdm9pZCBzZXRfZXJyb3JfYW5kX2ZyZWUo
+Y2hhciAqZXJyb3Jfc3RyKXsKCXNldF9lcnJvcihlcnJvcl9zdHIpOwoJZnJlZShlcnJvcl9zdHIp
+Owp9CmludCBQcmVmaXhTdW1faGFzX2Vycm9ycyh2b2lkKQp7CXJldHVybiBzdG9yZWRfaGFzX2Vy
+cm9yOyB9CmNvbnN0IGNoYXIqIFByZWZpeFN1bV9nZXRfZXJyb3JzKHZvaWQpCnsJcmV0dXJuIHN0
+b3JlZF9lcnJvcjsgfQp2b2lkIFByZWZpeFN1bV9jbGVhcl9lcnJvcnModm9pZCkKewoJZnJlZShz
+dG9yZWRfZXJyb3IpOwoJc3RvcmVkX2Vycm9yID0gTlVMTDsKCXN0b3JlZF9oYXNfZXJyb3IgPSAw
+Owp9CgpzdGF0aWMgY2hhciBQcmVmaXhTdW1fdXNlX3NpbXVsYXRpb25bMTZdOwpzdGF0aWMgdm9p
+ZCBQcmVmaXhTdW1fZGVmX3VzZV9zaW11bGF0aW9uKHZvaWQpCnsKCWxvbmcgcGlkID0gKChsb25n
+KSBnZXRwaWQoKSkgJSAxMDAwMDA7CglzbnByaW50ZihQcmVmaXhTdW1fdXNlX3NpbXVsYXRpb24s
+IDE2LCAiUHJlZml4U3VfJTA1bGRfIiwgcGlkKTsKfQpzdGF0aWMgY29uc3QgY2hhciAqUHJlZml4
+U3VtX2NoZWNrX3VzZV9zaW11bGF0aW9uKHZvaWQpCnsKCVByZWZpeFN1bV9kZWZfdXNlX3NpbXVs
+YXRpb24oKTsKCWNvbnN0IGNoYXIgKnVzZV9zaW0gPSBtYXhfY29uZmlnX2dldF9zdHJpbmcoTUFY
+X0NPTkZJR19VU0VfU0lNVUxBVElPTik7CglpZiAodXNlX3NpbSA9PSBOVUxMKSB7CgkJdXNlX3Np
+bSA9IFByZWZpeFN1bV91c2Vfc2ltdWxhdGlvbjsKCQltYXhfY29uZmlnX3NldF9zdHJpbmcoTUFY
+X0NPTkZJR19VU0VfU0lNVUxBVElPTiwgdXNlX3NpbSk7Cgl9CglyZXR1cm4gdXNlX3NpbTsKfQoK
+c3RhdGljIGludCBQcmVmaXhTdW1fc2ltdWxhdGlvbl9sYXVuY2ggPSAwOwppbnQgUHJlZml4U3Vt
+X3NpbXVsYXRvcl9zdGFydCh2b2lkKQp7CglpbnQgcmV0dmFsID0gMDsKCWNvbnN0IGNoYXIgKnVz
+ZV9zaW0gPSBQcmVmaXhTdW1fY2hlY2tfdXNlX3NpbXVsYXRpb24oKTsKCWNoYXIgYnVmZlsxMDI0
+XTsKCXNucHJpbnRmKGJ1ZmYsIDEwMjQsICJQQVRIPXNpbXV0aWxzOiRQQVRIIG1heGNvbXBpbGVy
+c2ltIC1kIDEgLW4gJXMgLWMgTUFYMzQyNEEgLVMgc2ltdXRpbHMgcmVzdGFydCIsIHVzZV9zaW0p
+OwoJRklMRSAqcGlwZV9mcCA9IHBvcGVuKGJ1ZmYsICJyIik7CglpZiAocGlwZV9mcCA9PSBOVUxM
+KSB7CgkJc3RybmNhdChidWZmLCAiIDogZmFpbGVkIHRvIGV4ZWN1dGUuIiwgKDEwMjQgLSBzdHJs
+ZW4oYnVmZikpKTsKCQlzZXRfZXJyb3IoYnVmZik7CgkJcmV0dXJuIC0xOwoJfQoJd2hpbGUgKGZn
+ZXRzKGJ1ZmYsIDEwMjQsIHBpcGVfZnApICE9IE5VTEwpIHsKCQkvKiBVbmNvbW1lbnQgdGhpcyB0
+byBnZXQgc2ltdWxhdG9yIGNvbW1hbmQgb3V0cHV0ICovCgkJLyogZnByaW50ZihzdGRlcnIsIGJ1
+ZmYpOyAqLwoJCWlmIChzdHJzdHIoYnVmZiwgIkVycm9yIikpIHsKCQkJc2V0X2Vycm9yKGJ1ZmYp
+OwoJCQlyZXR2YWwgPSAtMTsKCQl9Cgl9CglwY2xvc2UocGlwZV9mcCk7CglyZXR1cm4gcmV0dmFs
+Owp9CgppbnQgUHJlZml4U3VtX3NpbXVsYXRvcl9zdG9wKHZvaWQpCnsKCWNvbnN0IGNoYXIgKnVz
+ZV9zaW0gPSBQcmVmaXhTdW1fY2hlY2tfdXNlX3NpbXVsYXRpb24oKTsKCWNoYXIgYnVmZlsxMDI0
+XTsKCXNucHJpbnRmKGJ1ZmYsIDEwMjQsICJQQVRIPXNpbXV0aWxzOiRQQVRIIG1heGNvbXBpbGVy
+c2ltIC1kIDEgLW4gJXMgLWMgTUFYMzQyNEEgLVMgc2ltdXRpbHMgc3RvcCIsIHVzZV9zaW0pOwoJ
+RklMRSAqcGlwZV9mcCA9IHBvcGVuKGJ1ZmYsICJyIik7CglpZiAocGlwZV9mcCA9PSBOVUxMKSB7
+CgkJc3RybmNhdChidWZmLCAiIDogZmFpbGVkIHRvIGV4ZWN1dGUuIiwgKDEwMjQgLSBzdHJsZW4o
+YnVmZikpKTsKCQlzZXRfZXJyb3IoYnVmZik7CgkJcmV0dXJuIC0xOwoJfQoJd2hpbGUgKGZnZXRz
+KGJ1ZmYsIDEwMjQsIHBpcGVfZnApICE9IE5VTEwpIHsKCQkvKiBVbmNvbW1lbnQgdGhpcyB0byBn
+ZXQgc2ltdWxhdG9yIGNvbW1hbmQgb3V0cHV0ICovCgkJLyogZnByaW50ZihzdGRlcnIsIGJ1ZmYp
+OyAqLwoJCTsKCX0KCXBjbG9zZShwaXBlX2ZwKTsKCXJldHVybiAwOwp9CgpzdGF0aWMgdm9pZCBQ
+cmVmaXhTdW1fc3RhdGljX2luaXQodm9pZCkgCnsKCXN0b3JlZF9tYXhmaWxlID0gUHJlZml4U3Vt
+X2luaXQoKTsKCWlmIChzdG9yZWRfbWF4ZmlsZSA9PSBOVUxMIHx8ICFtYXhfb2soc3RvcmVkX21h
+eGZpbGUtPmVycm9ycykpIHsKCQlzdG9yZWRfbWF4ZmlsZSA9IE5VTEw7CgkJaWYobWF4X2NvbmZp
+Z19nZXRfYm9vbChNQVhfQ09ORklHX1NUQVRJQ19JTlRFUkZBQ0VfQUJPUlRfT05fRVJST1IpKSBh
+Ym9ydCgpOwoJCWVsc2UgeyBzZXRfZXJyb3IoIlVuYWJsZSB0byBsb2FkIG1heGZpbGUiKTsgcmV0
+dXJuOyB9Cgl9CglpZighbWF4X29rKG1heF9nbG9iYWxfZXJyb3JzKCkpKSB7CgkJc2V0X2Vycm9y
+X2FuZF9mcmVlKG1heF9lcnJvcnNfdHJhY2UobWF4X2dsb2JhbF9lcnJvcnMoKSkpOwoJCXJldHVy
+bjsKCX0KCWlmKCFtYXhfY29uZmlnX2dldF9ib29sKE1BWF9DT05GSUdfU1RBVElDX0lOVEVSRkFD
+RV9BQk9SVF9PTl9FUlJPUikpCgkJbWF4X2Vycm9yc19tb2RlKHN0b3JlZF9tYXhmaWxlLT5lcnJv
+cnMsIDApOwoJdGltZV90IHRpbWVvdXRfcHJldmlvdXMgPSBtYXhfbG9hZF90aW1lb3V0KHN0b3Jl
+ZF9tYXhmaWxlLCAzMCk7Cgljb25zdCBjaGFyICp1c2Vfc2ltID0gUHJlZml4U3VtX2NoZWNrX3Vz
+ZV9zaW11bGF0aW9uKCk7CglpZiAobWF4X3BpbmdfZGFlbW9uKHN0b3JlZF9tYXhmaWxlLCB1c2Vf
+c2ltKSA9PSAwKSB7CgkJaW50IHNpbV9zdGF0ID0gUHJlZml4U3VtX3NpbXVsYXRvcl9zdGFydCgp
+OwoJCWlmICgoc2ltX3N0YXQgPT0gMCkgJiYgKG1heF9waW5nX2RhZW1vbihzdG9yZWRfbWF4Zmls
+ZSwgdXNlX3NpbSkgPT0gMSkpIHsKCQkJUHJlZml4U3VtX3NpbXVsYXRpb25fbGF1bmNoID0gMTsK
+CQl9IGVsc2UgewoJCQlzZXRfZXJyb3IoIkVycm9yOiBBbiBlcnJvciBvY2N1cnJlZCB3aGlsZSB0
+cnlpbmcgdG8gc3RhcnQgdGhlIHNpbXVsYXRpb24gaW5mcmFzdHJ1Y3R1cmUgYXV0b21hdGljYWxs
+eS4iKTsKCQkJc2V0X2Vycm9yKCJFcnJvcjogQ2hlY2sgdGhhdCAndXNlX3NpbXVsYXRpb249PHNp
+bXVsYXRvcl9uYW1lPicgaXMgc2V0IGNvcnJlY3RseSBpbiB5b3VyIFNMaUMgY29uZmlndXJhdGlv
+biIpOwoJCQlzZXRfZXJyb3IoIkVycm9yOiBhbmQgdGhhdCB0aGUgYXNzb2NpYXRlZCBzaW11bGF0
+ZWQgc3lzdGVtIGRhZW1vbiBpcyBydW5uaW5nLiIpOwoJCQltYXhfZmlsZV9mcmVlKHN0b3JlZF9t
+YXhmaWxlKTsKCQkJc3RvcmVkX21heGZpbGUgPSBOVUxMOwoJCQlyZXR1cm47CgkJfQoJfQoJc3Rv
+cmVkX2VuZ2luZSA9IG1heF9sb2FkKHN0b3JlZF9tYXhmaWxlLCAiKiIpOwoJaWYgKCFtYXhfb2so
+c3RvcmVkX21heGZpbGUtPmVycm9ycykpIHsKCQlpZihtYXhfY29uZmlnX2dldF9ib29sKE1BWF9D
+T05GSUdfU1RBVElDX0lOVEVSRkFDRV9BQk9SVF9PTl9FUlJPUikpIHsKCQkJZnByaW50ZihzdGRl
+cnIsICJcblVuYWJsZSB0byBsb2FkIGVuZ2luZTogYWJvcnRpbmcgbm93LlxuXG4iKTsKCQkJZmZs
+dXNoKHN0ZGVycik7CgkJCWFib3J0KCk7CgkJfSBlbHNlIHsKCQkJc2V0X2Vycm9yX2FuZF9mcmVl
+KG1heF9lcnJvcnNfdHJhY2Uoc3RvcmVkX21heGZpbGUtPmVycm9ycykpOwoJCQltYXhfZmlsZV9m
+cmVlKHN0b3JlZF9tYXhmaWxlKTsKCQkJc3RvcmVkX21heGZpbGUgPSBOVUxMOwoJCQlyZXR1cm47
+CgkJfSAKCX0gCgltYXhfbG9hZF90aW1lb3V0KHN0b3JlZF9tYXhmaWxlLCB0aW1lb3V0X3ByZXZp
+b3VzKTsKfQp2b2lkIFByZWZpeFN1bV9mcmVlKHZvaWQpCnsKCWlmIChzdG9yZWRfZW5naW5lICE9
+IE5VTEwpIHsKCQltYXhfdW5sb2FkKHN0b3JlZF9lbmdpbmUpOwoJCXN0b3JlZF9lbmdpbmUgPSBO
+VUxMOwoJfQoJaWYgKHN0b3JlZF9tYXhmaWxlICE9IE5VTEwpIHsKCQltYXhfZmlsZV9mcmVlKHN0
+b3JlZF9tYXhmaWxlKTsKCQlzdG9yZWRfbWF4ZmlsZSA9IE5VTEw7Cgl9CglpZiAoc3RvcmVkX2Vy
+cm9yICE9IE5VTEwpIHsKCQlmcmVlKHN0b3JlZF9lcnJvcik7CgkJc3RvcmVkX2Vycm9yID0gTlVM
+TDsKCX0KCWlmIChQcmVmaXhTdW1fc2ltdWxhdGlvbl9sYXVuY2ggPT0gMSkgewoJCWludCBzaW1f
+c3RhdCA9IFByZWZpeFN1bV9zaW11bGF0b3Jfc3RvcCgpOwoJCWlmIChzaW1fc3RhdCAhPSAwICkg
+ewoJCQlmcHJpbnRmKHN0ZGVyciwgIkVycm9yIHN0b3BwaW5nIHNpbXVsYXRvci4iKTsKCQl9CgkJ
+UHJlZml4U3VtX3NpbXVsYXRpb25fbGF1bmNoID0gMDsKCX0KfQoKc3RhdGljIGludCBQcmVmaXhT
+dW1fZ2V0X3BjaWVfYWxpZ25tZW50KHZvaWQpCnsKI2lmZGVmIFByZWZpeFN1bV9QQ0lFX0FMSUdO
+TUVOVAoJcmV0dXJuICgoUHJlZml4U3VtX1BDSUVfQUxJR05NRU5UIDwgMSkgPyAxNiA6IFByZWZp
+eFN1bV9QQ0lFX0FMSUdOTUVOVCk7CiNlbHNlCglyZXR1cm4gMTY7CiNlbmRpZgp9CgpzdGF0aWMg
+aW50IFByZWZpeFN1bV9jaGVja19hbGlnbmVkKGNvbnN0IHZvaWQgKmRhdGEpCnsKCXVpbnRwdHJf
+dCBwb2ludGVyID0gKHVpbnRwdHJfdCkgZGF0YTsKCWludCBhbGlnbm1lbnQgPSBQcmVmaXhTdW1f
+Z2V0X3BjaWVfYWxpZ25tZW50KCk7CglyZXR1cm4gKHBvaW50ZXIgJSBhbGlnbm1lbnQpID8gMSA6
+IDA7Cn0KCnN0YXRpYyB2b2lkICpQcmVmaXhTdW1fbWFsbG9jX2FsaWduZWQoY29uc3Qgc2l6ZV90
+IHNpemUpCnsKCXZvaWQgKnB0cjsKCWludCBhbGlnbm1lbnQgPSBQcmVmaXhTdW1fZ2V0X3BjaWVf
+YWxpZ25tZW50KCk7Cglwb3NpeF9tZW1hbGlnbigmcHRyLCBhbGlnbm1lbnQsIHNpemUpOwoJcmV0
+dXJuIHB0cjsKfQoKCgovKi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0qLwovKi0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0gSW50ZXJmYWNlIGRlZmF1bHQgLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0qLwovKi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0qLwoKCgovKioKICogXGJyaWVmIEF1eGlsaWFyeSBm
+dW5jdGlvbiB0byBldmFsdWF0ZSBleHByZXNzaW9uIGZvciAiUHJlZml4U3VtS2VybmVsLmxvb3Ai
+LgogKi8KaW50IFByZWZpeFN1bV9nZXRfUHJlZml4U3VtS2VybmVsX2xvb3AoIHZvaWQgKQp7Cgly
+ZXR1cm4gMjsKfQoKI2RlZmluZSBDSEVDS19FUlJPUlNfU1QoU1QsIFJFVCkgaWYoIW1heF9vayhT
+VC0+ZXJyb3JzKSkgeyBpZihtYXhfY29uZmlnX2dldF9ib29sKE1BWF9DT05GSUdfU1RBVElDX0lO
+VEVSRkFDRV9BQk9SVF9PTl9FUlJPUikpIHsgZnByaW50ZihzdGRlcnIsICIlc1xuIiwgbWF4X2Vy
+cm9yc190cmFjZShTVC0+ZXJyb3JzKSk7IGFib3J0KCk7IH0gc2V0X2Vycm9yX2FuZF9mcmVlKG1h
+eF9lcnJvcnNfdHJhY2UoU1QtPmVycm9ycykpOyByZXR1cm4gUkVUOyB9IAojZGVmaW5lIENIRUNL
+X05VTEwoVkFMVUUsIE1FU1NBR0UsIFJFVCkgaWYoVkFMVUUgPT0gTlVMTCkgeyBpZiAobWF4X2Nv
+bmZpZ19nZXRfYm9vbChNQVhfQ09ORklHX1NUQVRJQ19JTlRFUkZBQ0VfQUJPUlRfT05fRVJST1Ip
+KSB7IGZwcmludGYoc3RkZXJyLCAiJXNcbiVzXG4iLCAoc3RvcmVkX2Vycm9yID09IE5VTEwpID8g
+IiIgOiBzdG9yZWRfZXJyb3IsIE1FU1NBR0UpOyBhYm9ydCgpOyB9IHNldF9lcnJvcihNRVNTQUdF
+KTsgcmV0dXJuIFJFVDsgfQoKIAp0eXBlZGVmIHN0cnVjdCBQcmVmaXhTdW1fY2FsbGJhY2tfc3Ry
+ZWFtIHsKCXVpbnQ4X3QgKnVzZXJfcHRyOwoJdWludDhfdCAqYWxpZ25lZF9wdHI7CglzaXplX3Qg
+ICBzaXplOwoJaW50ICAgICAgaXNfb3V0cHV0Owp9IFByZWZpeFN1bV9jYWxsYmFja19zdHJlYW1f
+dDsKCnR5cGVkZWYgc3RydWN0IFByZWZpeFN1bV9jYWxsYmFja19kYXRhIHsKCVByZWZpeFN1bV9j
+YWxsYmFja19zdHJlYW1fdCBzdHJlYW1bMl07IAoJaW50IGNvdW50OwoJaW50IG1heF9jb3VudDsK
+fSBQcmVmaXhTdW1fY2FsbGJhY2tfZGF0YV90OwoKc3RhdGljIHZvaWQgUHJlZml4U3VtX2NhbGxi
+YWNrX2ludGVybmFsKHZvaWQgKmNiX2RhdGEpCnsKCVByZWZpeFN1bV9jYWxsYmFja19kYXRhX3Qg
+KmRhdGEgPSAoUHJlZml4U3VtX2NhbGxiYWNrX2RhdGFfdCopIGNiX2RhdGE7Cglmb3IgKGludCBp
+ID0gMCA7IGkgPCBkYXRhLT5jb3VudCA7IGkrKyApIHsKCQlQcmVmaXhTdW1fY2FsbGJhY2tfc3Ry
+ZWFtX3QgKnMgPSAmZGF0YS0+c3RyZWFtW2ldOwoJCWlmIChzLT5pc19vdXRwdXQgJiYgKHMtPnNp
+emUgPiAwKSkgewoJCQltZW1jcHkocy0+dXNlcl9wdHIsIHMtPmFsaWduZWRfcHRyLCBzLT5zaXpl
+KTsKCQl9CgkJZnJlZShzLT5hbGlnbmVkX3B0cik7Cgl9CglmcmVlKGRhdGEpOwp9CgpzdGF0aWMg
+bWF4X2FjdGlvbnNfdCogUHJlZml4U3VtX2NvbnZlcnRfaW50ZXJuYWwoCgltYXhfZmlsZV90ICpt
+YXhmaWxlLAoJUHJlZml4U3VtX2FjdGlvbnNfdCAqaW50ZXJmYWNlX2FjdGlvbnMsCglpbnQgIGlz
+X2ludGVybmFsX2NhbGwsCgl2b2lkICgqKmNhbGxiYWNrX2Z1bmMpKHZvaWQqKSwKCXZvaWQgKipj
+YWxsYmFja19kYXRhKQp7CgltYXhfYWN0aW9uc190ICphY3Rpb25zID0gbWF4X2FjdGlvbnNfaW5p
+dChtYXhmaWxlLCBOVUxMKTsKCWlmKGFjdGlvbnMgPT0gTlVMTCkgcmV0dXJuIE5VTEw7CgojZGVm
+aW5lIENIRUNLX0VSUk9SUyBpZighbWF4X29rKGFjdGlvbnMtPmVycm9ycykpIHsgc2V0X2Vycm9y
+X2FuZF9mcmVlKG1heF9lcnJvcnNfdHJhY2UoYWN0aW9ucy0+ZXJyb3JzKSk7IHJldHVybiBOVUxM
+OyB9IAoKCVByZWZpeFN1bV9jYWxsYmFja19kYXRhX3QgKmNiX2RhdGEgPSBOVUxMOwoJaW50IHVz
+ZV9jYWxsYmFjayA9IChjYWxsYmFja19mdW5jICE9IE5VTEwpICYmIChjYWxsYmFja19kYXRhICE9
+IE5VTEwpOwoJaWYgKHVzZV9jYWxsYmFjaykgewoJCWNiX2RhdGEgPSBtYWxsb2Moc2l6ZW9mKFBy
+ZWZpeFN1bV9jYWxsYmFja19kYXRhX3QpKTsKCQlpZiAoY2JfZGF0YSA9PSBOVUxMKSB7CgkJCWZw
+cmludGYoc3RkZXJyLCAiVW5hYmxlIHRvIGFsbG9jYXRlIG1lbW9yeSBmb3Igc3RyZWFtIGNhbGxi
+YWNrIGRhdGEgaW4gZnVuY3Rpb24gUHJlZml4U3VtX2NvbnZlcnRfaW50ZXJuYWxcbiIpOwoJCQly
+ZXR1cm4gTlVMTDsKCQl9CgkJY2JfZGF0YS0+bWF4X2NvdW50ID0gMjsKCQljYl9kYXRhLT5jb3Vu
+dCAgICAgPSAwOwoJCSpjYWxsYmFja19kYXRhICAgICA9IGNiX2RhdGE7CgkJKmNhbGxiYWNrX2Z1
+bmMgICAgID0gJlByZWZpeFN1bV9jYWxsYmFja19pbnRlcm5hbDsKCX0KCglpbnQzMl90IHBhcmFt
+X1ByZWZpeFN1bUtlcm5lbF9sb29wID0gUHJlZml4U3VtX2dldF9QcmVmaXhTdW1LZXJuZWxfbG9v
+cCggICk7CgkKCWludDY0X3QgcGFyYW1fTiA9IGludGVyZmFjZV9hY3Rpb25zLT5wYXJhbV9OOwoJ
+CglpbnQ2NF90IHRtcF8wID0gKHBhcmFtX04gKiBwYXJhbV9QcmVmaXhTdW1LZXJuZWxfbG9vcCk7
+CgkKCS8qIGNvZGUgZm9yIHNjYWxhciBQcmVmaXhTdW1LZXJuZWwucnVuX2N5Y2xlX2NvdW50ICov
+Cgl1aW50NjRfdCB0aWNrc19QcmVmaXhTdW1LZXJuZWwgPSB0bXBfMDsKCW1heF9zZXRfdGlja3Mo
+YWN0aW9ucywgIlByZWZpeFN1bUtlcm5lbCIsIHRtcF8wKTsKCUNIRUNLX0VSUk9SUzsKCS8qIGVu
+ZCBvZiBjb2RlIGZvciBzY2FsYXIgUHJlZml4U3VtS2VybmVsLnJ1bl9jeWNsZV9jb3VudCovCgkK
+CWludDY0X3QgdG1wXzEgPSAocGFyYW1fTiAqIDEpOwoJCgkvKiBjb2RlIGZvciBzdHJlYW0geCAq
+LwoJc2l6ZV90IGluc3RyZWFtX3NpemVfeCA9IHRtcF8xOwoJaWYgKGluc3RyZWFtX3NpemVfeCA+
+IDApIHsKCQljb25zdCBpbnQ4X3QgKnN0cmVhbV9wdHIgPSBpbnRlcmZhY2VfYWN0aW9ucy0+aW5z
+dHJlYW1feDsKCQlpZiAodXNlX2NhbGxiYWNrICYmICgxID09IFByZWZpeFN1bV9jaGVja19hbGln
+bmVkKGludGVyZmFjZV9hY3Rpb25zLT5pbnN0cmVhbV94KSkpIHsKCQkJaW50OF90ICphbGlnbmVk
+X2luc3RyZWFtX3ggPSBtYWxsb2MoaW5zdHJlYW1fc2l6ZV94KTsKCQkJaWYgKGFsaWduZWRfaW5z
+dHJlYW1feCA9PSBOVUxMKSB7CgkJCQltYXhfcmVwb3J0X2Vycm9yX3NsaWMoYWN0aW9ucy0+ZXJy
+b3JzLCBfX0ZJTEVfXywgX19MSU5FX18sIDUyNiwgIkZhaWxlZCB0byBhbGxvY2F0ZSBhbGlnbmVk
+IG1lbW9yeSBmb3Igc3RyZWFtICd4JyIpOwoJCQkJQ0hFQ0tfRVJST1JTOwoJCQl9CgkJCSgmY2Jf
+ZGF0YS0+c3RyZWFtW2NiX2RhdGEtPmNvdW50XSktPnVzZXJfcHRyICAgID0gKHVpbnQ4X3QqKSBp
+bnRlcmZhY2VfYWN0aW9ucy0+aW5zdHJlYW1feDsKCQkJKCZjYl9kYXRhLT5zdHJlYW1bY2JfZGF0
+YS0+Y291bnRdKS0+YWxpZ25lZF9wdHIgPSAodWludDhfdCopIGFsaWduZWRfaW5zdHJlYW1feDsK
+CQkJKCZjYl9kYXRhLT5zdHJlYW1bY2JfZGF0YS0+Y291bnRdKS0+c2l6ZSAgICAgICAgPSBpbnN0
+cmVhbV9zaXplX3g7CgkJCSgmY2JfZGF0YS0+c3RyZWFtW2NiX2RhdGEtPmNvdW50XSktPmlzX291
+dHB1dCAgID0gMDsKCQkJY2JfZGF0YS0+Y291bnQgKz0gMTsKCQkJbWVtY3B5KGFsaWduZWRfaW5z
+dHJlYW1feCwgaW50ZXJmYWNlX2FjdGlvbnMtPmluc3RyZWFtX3gsIGluc3RyZWFtX3NpemVfeCk7
+CgkJCXN0cmVhbV9wdHIgPSBhbGlnbmVkX2luc3RyZWFtX3g7CgkJfQoJCW1heF9xdWV1ZV9pbnB1
+dChhY3Rpb25zLCAieCIsIHN0cmVhbV9wdHIsIGluc3RyZWFtX3NpemVfeCk7CgkJQ0hFQ0tfRVJS
+T1JTOwoJfQoJLyogZW5kIG9mIGNvZGUgZm9yIHN0cmVhbSB4ICovCgkKCWludDY0X3QgdG1wXzIg
+PSAocGFyYW1fTiAqIDEpOwoJCgkvKiBjb2RlIGZvciBzdHJlYW0geiAqLwoJc2l6ZV90IG91dHN0
+cmVhbV9zaXplX3ogPSB0bXBfMjsKCWlmIChvdXRzdHJlYW1fc2l6ZV96ID4gMCkgewoJCWludDhf
+dCAqc3RyZWFtX3B0ciA9IGludGVyZmFjZV9hY3Rpb25zLT5vdXRzdHJlYW1fejsKCQlpZiAodXNl
+X2NhbGxiYWNrICYmICgxID09IFByZWZpeFN1bV9jaGVja19hbGlnbmVkKGludGVyZmFjZV9hY3Rp
+b25zLT5vdXRzdHJlYW1feikpKSB7CgkJCWludDhfdCAqYWxpZ25lZF9vdXRzdHJlYW1feiA9IG1h
+bGxvYyhvdXRzdHJlYW1fc2l6ZV96KTsKCQkJaWYgKGFsaWduZWRfb3V0c3RyZWFtX3ogPT0gTlVM
+TCkgewoJCQkJbWF4X3JlcG9ydF9lcnJvcl9zbGljKGFjdGlvbnMtPmVycm9ycywgX19GSUxFX18s
+IF9fTElORV9fLCA1MjYsICJGYWlsZWQgdG8gYWxsb2NhdGUgYWxpZ25lZCBtZW1vcnkgZm9yIHN0
+cmVhbSAneiciKTsKCQkJCUNIRUNLX0VSUk9SUzsKCQkJfQoJCQkoJmNiX2RhdGEtPnN0cmVhbVtj
+Yl9kYXRhLT5jb3VudF0pLT51c2VyX3B0ciAgICA9ICh1aW50OF90KikgaW50ZXJmYWNlX2FjdGlv
+bnMtPm91dHN0cmVhbV96OwoJCQkoJmNiX2RhdGEtPnN0cmVhbVtjYl9kYXRhLT5jb3VudF0pLT5h
+bGlnbmVkX3B0ciA9ICh1aW50OF90KikgYWxpZ25lZF9vdXRzdHJlYW1fejsKCQkJKCZjYl9kYXRh
+LT5zdHJlYW1bY2JfZGF0YS0+Y291bnRdKS0+c2l6ZSAgICAgICAgPSBvdXRzdHJlYW1fc2l6ZV96
+OwoJCQkoJmNiX2RhdGEtPnN0cmVhbVtjYl9kYXRhLT5jb3VudF0pLT5pc19vdXRwdXQgICA9IDE7
+CgkJCWNiX2RhdGEtPmNvdW50ICs9IDE7CgkJCXN0cmVhbV9wdHIgPSBhbGlnbmVkX291dHN0cmVh
+bV96OwoJCX0KCQltYXhfcXVldWVfb3V0cHV0KGFjdGlvbnMsICJ6Iiwgc3RyZWFtX3B0ciwgb3V0
+c3RyZWFtX3NpemVfeik7CgkJQ0hFQ0tfRVJST1JTOwoJfQoJLyogZW5kIG9mIGNvZGUgZm9yIHN0
+cmVhbSB6ICovCgkKCWlmICh1c2VfY2FsbGJhY2sgJiYgY2JfZGF0YS0+Y291bnQgPT0gMCkgewoJ
+CSpjYWxsYmFja19kYXRhID0gTlVMTDsKCQkqY2FsbGJhY2tfZnVuYyA9IE5VTEw7CgkJZnJlZShj
+Yl9kYXRhKTsKCX0KCXJldHVybiBhY3Rpb25zOwojdW5kZWYgQ0hFQ0tfRVJST1JTCn0KCnZvaWQg
+UHJlZml4U3VtKAoJaW50NjRfdCBwYXJhbV9OLAoJY29uc3QgaW50OF90ICppbnN0cmVhbV94LAoJ
+aW50OF90ICpvdXRzdHJlYW1feikKewoJKHZvaWQpIHB0aHJlYWRfb25jZSgmc2xpY19ic19pc19p
+bml0aWFsaXNlZCwgUHJlZml4U3VtX3N0YXRpY19pbml0KTsKCUNIRUNLX05VTEwoc3RvcmVkX21h
+eGZpbGUsICJNYXhmaWxlIHdhcyBub3QgbG9hZGVkIiwgKTsKCW1heF9ydW5fdCAqcnVuID0gUHJl
+Zml4U3VtX25vbmJsb2NrKHBhcmFtX04sIGluc3RyZWFtX3gsIG91dHN0cmVhbV96KTsKCUNIRUNL
+X05VTEwocnVuLCAiVW5hYmxlIHRvIHJ1biBhY3Rpb25zIiwgKTsKCW1heF93YWl0KHJ1bik7Cn0K
+Cm1heF9ydW5fdCAqUHJlZml4U3VtX25vbmJsb2NrKAoJaW50NjRfdCBwYXJhbV9OLAoJY29uc3Qg
+aW50OF90ICppbnN0cmVhbV94LAoJaW50OF90ICpvdXRzdHJlYW1feikKewoJUHJlZml4U3VtX2Fj
+dGlvbnNfdCBpbnRlcmZhY2VfYWN0aW9uczsKCWludGVyZmFjZV9hY3Rpb25zLnBhcmFtX04gPSBw
+YXJhbV9OOwoJaW50ZXJmYWNlX2FjdGlvbnMuaW5zdHJlYW1feCA9IGluc3RyZWFtX3g7CglpbnRl
+cmZhY2VfYWN0aW9ucy5vdXRzdHJlYW1feiA9IG91dHN0cmVhbV96OwoJKHZvaWQpIHB0aHJlYWRf
+b25jZSgmc2xpY19ic19pc19pbml0aWFsaXNlZCwgUHJlZml4U3VtX3N0YXRpY19pbml0KTsKCUNI
+RUNLX05VTEwoc3RvcmVkX21heGZpbGUsICJNYXhmaWxlIHdhcyBub3QgbG9hZGVkIiwgTlVMTCk7
+Cgl2b2lkICgqY2JfZnVuYykodm9pZCopID0gTlVMTDsKCXZvaWQgICpjYl9kYXRhICAgICAgICAg
+PSBOVUxMOwoJbWF4X2FjdGlvbnNfdCAqYWN0aW9ucyA9IFByZWZpeFN1bV9jb252ZXJ0X2ludGVy
+bmFsKHN0b3JlZF9tYXhmaWxlLCAmaW50ZXJmYWNlX2FjdGlvbnMsIDEsICZjYl9mdW5jLCAmY2Jf
+ZGF0YSk7CglDSEVDS19OVUxMKGFjdGlvbnMsICJVbmFibGUgdG8gYnVpbGQgYWN0aW9ucyIsIE5V
+TEwpOwoJbWF4X3ZhbGlkYXRlKGFjdGlvbnMpOwoJQ0hFQ0tfRVJST1JTX1NUKGFjdGlvbnMsIE5V
+TEwpOwoJQ0hFQ0tfRVJST1JTX1NUKHN0b3JlZF9lbmdpbmUsIE5VTEwpOwoJbWF4X3J1bl90ICpy
+dW47CglpZiAoY2JfZnVuYyA9PSBOVUxMKSB7CgkJcnVuID0gbWF4X3J1bl9ub25ibG9jayhzdG9y
+ZWRfZW5naW5lLCBhY3Rpb25zKTsKCX0gZWxzZSB7CgkJcnVuID0gbWF4X3J1bl9ub25ibG9ja193
+aXRoX2NiKHN0b3JlZF9lbmdpbmUsIGFjdGlvbnMsIGNiX2Z1bmMsIGNiX2RhdGEpOwoJfQoJQ0hF
+Q0tfTlVMTChydW4sICJVbmFibGUgdG8gcnVuIGFjdGlvbnMiLCBOVUxMKTsKCUNIRUNLX0VSUk9S
+U19TVChhY3Rpb25zLCBOVUxMKTsKCW1heF9hY3Rpb25zX2ZyZWUoYWN0aW9ucyk7CglyZXR1cm4g
+cnVuOwp9Cgp2b2lkIFByZWZpeFN1bV9ydW4oCgltYXhfZW5naW5lX3QgKmVuZ2luZSwKCVByZWZp
+eFN1bV9hY3Rpb25zX3QgKmludGVyZmFjZV9hY3Rpb25zKQp7CgltYXhfcnVuX3QgKnJ1biA9IFBy
+ZWZpeFN1bV9ydW5fbm9uYmxvY2soZW5naW5lLCBpbnRlcmZhY2VfYWN0aW9ucyk7CglDSEVDS19O
+VUxMKHJ1biwgIlVuYWJsZSB0byBydW4gYWN0aW9ucyIsICk7CgltYXhfd2FpdChydW4pOwp9Cgpt
+YXhfcnVuX3QgKlByZWZpeFN1bV9ydW5fbm9uYmxvY2soCgltYXhfZW5naW5lX3QgKmVuZ2luZSwK
+CVByZWZpeFN1bV9hY3Rpb25zX3QgKmludGVyZmFjZV9hY3Rpb25zKQp7CgltYXhfZmlsZV90ICpt
+YXhmaWxlID0gbWF4X2VuZ2luZV9nZXRfbWF4X2ZpbGUoZW5naW5lKTsgCgl2b2lkICgqY2JfZnVu
+Yykodm9pZCopID0gTlVMTDsKCXZvaWQgICpjYl9kYXRhICAgICAgICAgPSBOVUxMOwoJbWF4X2Fj
+dGlvbnNfdCAqYWN0aW9ucyA9IFByZWZpeFN1bV9jb252ZXJ0X2ludGVybmFsKG1heGZpbGUsIGlu
+dGVyZmFjZV9hY3Rpb25zLCAxLCAmY2JfZnVuYywgJmNiX2RhdGEpOwoJQ0hFQ0tfRVJST1JTX1NU
+KGFjdGlvbnMsIE5VTEwpOwoJbWF4X3J1bl90ICpydW47CglpZiAoY2JfZnVuYyA9PSBOVUxMKSB7
+CgkJcnVuID0gbWF4X3J1bl9ub25ibG9jayhlbmdpbmUsIGFjdGlvbnMpOwoJfSBlbHNlIHsKCQly
+dW4gPSBtYXhfcnVuX25vbmJsb2NrX3dpdGhfY2IoZW5naW5lLCBhY3Rpb25zLCBjYl9mdW5jLCBj
+Yl9kYXRhKTsKCX0KCUNIRUNLX05VTEwocnVuLCAiVW5hYmxlIHRvIHJ1biBhY3Rpb25zIiwgTlVM
+TCk7CgltYXhfYWN0aW9uc19mcmVlKGFjdGlvbnMpOwoJcmV0dXJuIHJ1bjsKfQoKCi8qKgogKiBc
+YnJpZWYgR3JvdXAgcnVuIGFkdmFuY2VkIHN0YXRpYyBmdW5jdGlvbiBmb3IgdGhlIGludGVyZmFj
+ZSAnZGVmYXVsdCcuCiAqIAogKiBccGFyYW0gW2luXSBncm91cCBHcm91cCB0byB1c2UuCiAqIFxw
+YXJhbSBbaW4sb3V0XSBpbnRlcmZhY2VfYWN0aW9ucyBBY3Rpb25zIHRvIHJ1bi4KICoKICogUnVu
+IHRoZSBhY3Rpb25zIG9uIHRoZSBmaXJzdCBkZXZpY2UgYXZhaWxhYmxlIGluIHRoZSBncm91cC4K
+ICovCnZvaWQgUHJlZml4U3VtX3J1bl9ncm91cChtYXhfZ3JvdXBfdCAqZ3JvdXAsIFByZWZpeFN1
+bV9hY3Rpb25zX3QgKmludGVyZmFjZV9hY3Rpb25zKQp7CgltYXhfcnVuX3QgKnJ1biA9IFByZWZp
+eFN1bV9ydW5fZ3JvdXBfbm9uYmxvY2soZ3JvdXAsIGludGVyZmFjZV9hY3Rpb25zKTsKCUNIRUNL
+X05VTEwocnVuLCAiVW5hYmxlIHRvIHJ1biBhY3Rpb25zIiwgKTsKCW1heF93YWl0KHJ1bik7Cn0K
+CgovKioKICogXGJyaWVmIEdyb3VwIHJ1biBhZHZhbmNlZCBzdGF0aWMgbm9uLWJsb2NraW5nIGZ1
+bmN0aW9uIGZvciB0aGUgaW50ZXJmYWNlICdkZWZhdWx0Jy4KICogCiAqCiAqIFNjaGVkdWxlIHRo
+ZSBhY3Rpb25zIHRvIHJ1biBvbiB0aGUgZmlyc3QgZGV2aWNlIGF2YWlsYWJsZSBpbiB0aGUgZ3Jv
+dXAgYW5kIHJldHVybiBpbW1lZGlhdGVseS4KICogVGhlIHN0YXR1cyBvZiB0aGUgcnVuIG11c3Qg
+YmUgY2hlY2tlZCB3aXRoIDo6bWF4X3dhaXQuIAogKiBOb3RlIHRoYXQgdXNlIG9mIDo6bWF4X25v
+d2FpdCBpcyBwcm9oaWJpdGVkIHdpdGggbm9uLWJsb2NraW5nIHJ1bm5pbmcgb24gZ3JvdXBzOgog
+KiBzZWUgdGhlIDo6bWF4X3J1bl9ncm91cF9ub25ibG9jayBkb2N1bWVudGF0aW9uIGZvciBtb3Jl
+IGV4cGxhbmF0aW9uLgogKgogKiBccGFyYW0gW2luXSBncm91cCBHcm91cCB0byB1c2UuCiAqIFxw
+YXJhbSBbaW5dIGludGVyZmFjZV9hY3Rpb25zIEFjdGlvbnMgdG8gcnVuLgogKiBccmV0dXJuIEEg
+aGFuZGxlIG9uIHRoZSBleGVjdXRpb24gc3RhdHVzIG9mIHRoZSBhY3Rpb25zLCBvciBOVUxMIGlu
+IGNhc2Ugb2YgZXJyb3IuCiAqLwptYXhfcnVuX3QgKlByZWZpeFN1bV9ydW5fZ3JvdXBfbm9uYmxv
+Y2sobWF4X2dyb3VwX3QgKmdyb3VwLCBQcmVmaXhTdW1fYWN0aW9uc190ICppbnRlcmZhY2VfYWN0
+aW9ucykKewoJbWF4X2ZpbGVfdCAqbWF4ZmlsZSA9IG1heF9ncm91cF9nZXRfbWF4X2ZpbGUoZ3Jv
+dXApOwoJbWF4X2FjdGlvbnNfdCAqYWN0aW9ucyA9IFByZWZpeFN1bV9jb252ZXJ0X2ludGVybmFs
+KG1heGZpbGUsIGludGVyZmFjZV9hY3Rpb25zLCAxLCBOVUxMLCBOVUxMKTsKCWlmKGFjdGlvbnMg
+PT0gTlVMTCkgcmV0dXJuIE5VTEw7CglpZighbWF4X29rKGFjdGlvbnMtPmVycm9ycykpIHJldHVy
+biBOVUxMOwoJbWF4X3ZhbGlkYXRlKGFjdGlvbnMpOwoJbWF4X3J1bl90ICpydW4gPSBtYXhfcnVu
+X2dyb3VwX25vbmJsb2NrKGdyb3VwLCBhY3Rpb25zKTsKCW1heF9hY3Rpb25zX2ZyZWUoYWN0aW9u
+cyk7CglyZXR1cm4gcnVuOwp9CgoKLyoqCiAqIFxicmllZiBBcnJheSBydW4gYWR2YW5jZWQgc3Rh
+dGljIGZ1bmN0aW9uIGZvciB0aGUgaW50ZXJmYWNlICdkZWZhdWx0Jy4KICogCiAqIFxwYXJhbSBb
+aW5dIGVuZ2FycmF5IFRoZSBhcnJheSBvZiBkZXZpY2VzIHRvIHVzZS4KICogXHBhcmFtIFtpbixv
+dXRdIGludGVyZmFjZV9hY3Rpb25zIFRoZSBhcnJheSBvZiBhY3Rpb25zIHRvIHJ1bi4KICoKICog
+UnVuIHRoZSBhcnJheSBvZiBhY3Rpb25zIG9uIHRoZSBhcnJheSBvZiBlbmdpbmVzLiAgVGhlIGxl
+bmd0aCBvZiBpbnRlcmZhY2VfYWN0aW9ucwogKiBtdXN0IG1hdGNoIHRoZSBzaXplIG9mIGVuZ2Fy
+cmF5LgogKi8Kdm9pZCBQcmVmaXhTdW1fcnVuX2FycmF5KG1heF9lbmdhcnJheV90ICplbmdhcnJh
+eSwgUHJlZml4U3VtX2FjdGlvbnNfdCAqaW50ZXJmYWNlX2FjdGlvbnNbXSkKewoJbWF4X3J1bl90
+ICpydW4gPSBQcmVmaXhTdW1fcnVuX2FycmF5X25vbmJsb2NrKGVuZ2FycmF5LCBpbnRlcmZhY2Vf
+YWN0aW9ucyk7CglDSEVDS19OVUxMKHJ1biwgIlVuYWJsZSB0byBydW4gYWN0aW9ucyIsICk7Cglt
+YXhfd2FpdChydW4pOwp9CgoKLyoqCiAqIFxicmllZiBBcnJheSBydW4gYWR2YW5jZWQgc3RhdGlj
+IG5vbi1ibG9ja2luZyBmdW5jdGlvbiBmb3IgdGhlIGludGVyZmFjZSAnZGVmYXVsdCcuCiAqIAog
+KgogKiBTY2hlZHVsZSB0byBydW4gdGhlIGFycmF5IG9mIGFjdGlvbnMgb24gdGhlIGFycmF5IG9m
+IGVuZ2luZXMsIGFuZCByZXR1cm4gaW1tZWRpYXRlbHkuCiAqIFRoZSBsZW5ndGggb2YgaW50ZXJm
+YWNlX2FjdGlvbnMgbXVzdCBtYXRjaCB0aGUgc2l6ZSBvZiBlbmdhcnJheS4KICogVGhlIHN0YXR1
+cyBvZiB0aGUgcnVuIGNhbiBiZSBjaGVja2VkIGVpdGhlciBieSA6Om1heF93YWl0IG9yIDo6bWF4
+X25vd2FpdDsKICogbm90ZSB0aGF0IG9uZSBvZiB0aGVzZSAqbXVzdCogYmUgY2FsbGVkLCBzbyB0
+aGF0IGFzc29jaWF0ZWQgbWVtb3J5IGNhbiBiZSByZWxlYXNlZC4KICoKICogXHBhcmFtIFtpbl0g
+ZW5nYXJyYXkgVGhlIGFycmF5IG9mIGRldmljZXMgdG8gdXNlLgogKiBccGFyYW0gW2luXSBpbnRl
+cmZhY2VfYWN0aW9ucyBUaGUgYXJyYXkgb2YgYWN0aW9ucyB0byBydW4uCiAqIFxyZXR1cm4gQSBo
+YW5kbGUgb24gdGhlIGV4ZWN1dGlvbiBzdGF0dXMgb2YgdGhlIGFjdGlvbnMsIG9yIE5VTEwgaW4g
+Y2FzZSBvZiBlcnJvci4KICovCm1heF9ydW5fdCAqUHJlZml4U3VtX3J1bl9hcnJheV9ub25ibG9j
+ayhtYXhfZW5nYXJyYXlfdCAqZW5nYXJyYXksIFByZWZpeFN1bV9hY3Rpb25zX3QgKmludGVyZmFj
+ZV9hY3Rpb25zW10pCnsKCW1heF9maWxlX3QgKm1heGZpbGUgPSBtYXhfZW5nYXJyYXlfZ2V0X21h
+eF9maWxlKGVuZ2FycmF5LCAwKTsKCWludCBpOwoJbWF4X2FjdGFycmF5X3QgKmFjdGFycmF5ID0g
+bWF4X2FjdGFycmF5X2luaXQobWF4ZmlsZSwgZW5nYXJyYXktPnNpemUpOwoJaWYgKGFjdGFycmF5
+ID09IE5VTEwpIHJldHVybiBOVUxMOwoJbWF4X2FjdGlvbnNfdCAqKmFycl9hY3Rpb25zID0gbWFs
+bG9jKGVuZ2FycmF5LT5zaXplICogc2l6ZW9mKG1heF9hY3Rpb25zX3QqKSk7Cglmb3IgKCBpID0g
+MCA7IGkgPCBhY3RhcnJheS0+c2l6ZTsgaSsrICkgewoJCW1heF9hY3Rpb25zX3QgKmFjdGlvbnMg
+PSBQcmVmaXhTdW1fY29udmVydF9pbnRlcm5hbChtYXhmaWxlLCBpbnRlcmZhY2VfYWN0aW9uc1tp
+XSwgMSwgTlVMTCwgTlVMTCk7CgkJaWYgKGFjdGlvbnMgPT0gTlVMTCkgcmV0dXJuIE5VTEw7CgkJ
+YXJyX2FjdGlvbnNbaV0gPSBhY3Rpb25zOwoJCW1heF9zZXRfYWN0aW9uKGFjdGFycmF5LCBpLCBh
+Y3Rpb25zKTsKCX0KCW1heF9ydW5fdCAqcnVuID0gbWF4X3J1bl9hcnJheV9ub25ibG9jayhlbmdh
+cnJheSwgYWN0YXJyYXkpOwoJZm9yICggaSA9IDAgOyBpIDwgYWN0YXJyYXktPnNpemUgOyBpKysg
+KSB7IG1heF9hY3Rpb25zX2ZyZWUoYXJyX2FjdGlvbnNbaV0pOyB9CgltYXhfYWN0YXJyYXlfZnJl
+ZShhY3RhcnJheSk7CglmcmVlKGFycl9hY3Rpb25zKTsKCXJldHVybiBydW47Cn0KCgovKioKICog
+XGJyaWVmIENvbnZlcnRzIGEgc3RhdGljLWludGVyZmFjZSBhY3Rpb24gc3RydWN0IGludG8gYSBk
+eW5hbWljLWludGVyZmFjZSBtYXhfYWN0aW9uc190IHN0cnVjdC4KICoKICogTm90ZSB0aGF0IHRo
+aXMgaXMgYW4gaW50ZXJuYWwgdXRpbGl0eSBmdW5jdGlvbiB1c2VkIGJ5IG90aGVyIGZ1bmN0aW9u
+cyBpbiB0aGUgc3RhdGljIGludGVyZmFjZS4KICoKICogXHBhcmFtIFtpbl0gbWF4ZmlsZSBUaGUg
+bWF4ZmlsZSB0byB1c2UuCiAqIFxwYXJhbSBbaW5dIGludGVyZmFjZV9hY3Rpb25zIFRoZSBpbnRl
+cmZhY2Utc3BlY2lmaWMgYWN0aW9ucyB0byBydW4uCiAqIFxyZXR1cm4gVGhlIGR5bmFtaWMtaW50
+ZXJmYWNlIGFjdGlvbnMgdG8gcnVuLCBvciBOVUxMIGluIGNhc2Ugb2YgZXJyb3IuCiAqLwptYXhf
+YWN0aW9uc190KiBQcmVmaXhTdW1fY29udmVydChtYXhfZmlsZV90ICptYXhmaWxlLCBQcmVmaXhT
+dW1fYWN0aW9uc190ICppbnRlcmZhY2VfYWN0aW9ucykKewoJcmV0dXJuIFByZWZpeFN1bV9jb252
+ZXJ0X2ludGVybmFsKG1heGZpbGUsIGludGVyZmFjZV9hY3Rpb25zLCAwLCBOVUxMLCBOVUxMKTsK
+fQoKI3VuZGVmIENIRUNLX0VSUk9SU19TVAojdW5kZWYgQ0hFQ0tfTlVMTAoKCg==
+#endif /* SLIC_B64_DEFINITIONS */
+
+#ifdef SLIC_EXTRA_FILES
+PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+PHVz
+ZXJmaWxlcyBmb3JtYXQtdmVyc2lvbj0iMjAxMjAyMDAiLz4=
+#endif /* SLIC_EXTRA_FILES */
+
+#ifdef PHOTON_NODE_ADD_DATA
+#define PHOTON_NODE_ADD_DATA_PRESENT 1
+PHOTON_NODE_ADD_DATA(PrefixSumKernel, 47, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PrefixSumKernel, 41, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PrefixSumKernel, 4, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PrefixSumKernel, 6, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PrefixSumKernel, 46, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PrefixSumKernel, 19, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PrefixSumKernel, 20, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PrefixSumKernel, 21, "SquashFactor", 1.0)
+PHOTON_NODE_ADD_DATA(PrefixSumKernel, 22, "SquashFactor", 1.0)
+PHOTON_NODE_ADD_DATA(PrefixSumKernel, 40, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PrefixSumKernel, 45, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PrefixSumKernel, 8, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PrefixSumKernel, 9, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PrefixSumKernel, 10, "SquashFactor", 1.0)
+PHOTON_NODE_ADD_DATA(PrefixSumKernel, 11, "SquashFactor", 1.0)
+PHOTON_NODE_ADD_DATA(PrefixSumKernel, 12, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PrefixSumKernel, 44, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PrefixSumKernel, 2, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PrefixSumKernel, 3, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PrefixSumKernel, 13, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PrefixSumKernel, 39, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PrefixSumKernel, 38, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PrefixSumKernel, 14, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PrefixSumKernel, 15, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PrefixSumKernel, 16, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PrefixSumKernel, 23, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PrefixSumKernel, 28, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PrefixSumKernel, 43, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PrefixSumKernel, 25, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PrefixSumKernel, 26, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PrefixSumKernel, 27, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PrefixSumKernel, 29, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PrefixSumKernel, 42, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PrefixSumKernel, 31, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PrefixSumKernel, 32, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PrefixSumKernel, 34, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PrefixSumKernel, 35, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(PrefixSumKernel, 33, "SquashFactor", 0.0)
+#endif
+
+#ifdef MAXFILE_SIGNATURE
+#define MAXFILE_SIGNATURE_PRESENT 1
+MAXFILE_SIGNATURE("302c02144dae7bada0afb6895d9a340f37d22039f070ce6d02145230c37a034202c1ab2d7dce96dd089a0f338260")
+#endif
+

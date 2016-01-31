@@ -1,0 +1,32 @@
+package prefixsum;
+
+import com.maxeler.maxcompiler.v2.kernelcompiler.Kernel;
+import com.maxeler.maxcompiler.v2.kernelcompiler.KernelParameters;
+import com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Stream.OffsetExpr;
+import com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEType;
+import com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar;
+
+public class PrefixSumKernel extends Kernel {
+
+	private static final DFEType type = dfeInt(8);
+
+	public PrefixSumKernel(KernelParameters parameters) {
+		super(parameters);
+
+		DFEVar sum, cnt, result, loopVal, cnt_output;
+		OffsetExpr loop = stream.makeOffsetAutoLoop("loop");
+		loopVal = loop.getDFEVar(this,dfeUInt(64));
+		cnt = control.count.simpleCounter(64);
+		cnt_output = control.count.simpleCounter(8,loopVal.cast(dfeUInt(8)));
+		sum = type.newInstance(this);
+		DFEVar x = io.input("x", type, cnt_output.eq(0));
+
+		result = x + (cnt < loopVal?0:sum);
+
+		sum <== stream.offset(result, -loop);
+
+		io.output("z", result, type, cnt_output.eq(0));
+	}
+}
+
+
